@@ -1,0 +1,26 @@
+<div class='container'>
+<div class='row'>
+<div class='col-lg-offset-3 col-lg-6'>
+<%= form_for @group, html: {class: 'form-horizontal', multipart: true} do |f| %>
+  <div class='form-group'>
+    <%= f.label :name, 'グループ名' %>
+    <%= f.text_field :name %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :club_id, 'スポーツクラブ' %>
+    <%= f.select :club_id, @clubs, class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :sport_id, 'スポーツ' %>
+    <%= f.select :sport_id, @sports, class: 'form-control' %>
+  </div>
+  <div class='form-group'>
+    <%= f.label :img, '画像' %>
+    <%= f.file_field :img %>
+  </div>
+
+  <%= f.submit '登録' %>
+<% end %>
+</div>
+</div>
+</div>

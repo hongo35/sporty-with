@@ -1,0 +1,32 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <table id='clubInfo' class='table table-bordered'>
+        <tbody>
+          <tr>
+            <td class='club-img' rowspan='3'><%= link_to image_tag('no_img.png'), @club.url, target: '_blank' %></td>
+            <td><b><%= @club.name %></b></td>
+          </tr>
+          <tr><td><%= link_to @club.url, @club.url, target: '_blank' %></td></tr>
+          <tr><td><%= @club.address %></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class='row'>
+  <div class='col-lg-12'>
+<h3>グループ</h3>
+  </div>
+  </div>
+  <div class='row'>
+    <% @groups.each do |g| %>
+    <div class='col-lg-3'>
+      <table class='table table-bordered club-group'>
+        <tr><td class='group-img'><%= image_tag g.img.url %></td></tr>
+        <tr><td><%= g.name %></td></tr>
+        <tr><td>詳細(活動予定)</td></tr>
+      </table>
+    </div>
+    <% end %>
+  </div>
+</div>

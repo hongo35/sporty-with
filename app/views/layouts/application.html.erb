@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SportyWith</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+    <nav class='navbar navbar-fixed-top header'>
+      <div class='pull-left'>
+      <%= link_to image_tag('userlocal_logo.gif', {class: 'header-logo', width: 150, height: 27}), root_path, class: 'no-decorate' %>
+      </div>
+      <div class='pull-right nav-help'>
+        <% if current_user %>
+<%#= image_tag %>
+          <%= image_tag(current_user.profile_img_url, width: 40) %><%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'ログイン', new_user_session_path %>
+        <% end %>
+      </div>
+    </nav>
+
+    <div class='whole-container'>
+      <% if notice %>
+        <div class='alert alert-info'><%= notice %></div>
+	  <% end %>
+      <% if alert %>
+        <div class='alert alert-danger'><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+    </div>
+
+    <div id='footer' >
+      <div class='footer-container'>
+        <nav>
+          <ul class='list-inline text-center'>
+            <li>© Sporty-with<%#= link_to %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </body>
+</html>

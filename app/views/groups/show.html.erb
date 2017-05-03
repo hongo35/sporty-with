@@ -1,0 +1,18 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <%= link_to '活動予定を登録', new_event_path(gid: @group.id), class: 'pull-right btn btn-default' %>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-lg-12'>
+      <table class='table table-bordered'>
+        <tbody>
+        <% @events.each do |e| %>
+         <tr><td><%= e.message %></td></tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
