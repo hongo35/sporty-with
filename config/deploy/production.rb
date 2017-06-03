@@ -1,8 +1,8 @@
-server 'sakura', user: 'hongo35', roles: %(app db web)
+server 'sakura', user: 'hongo35', roles: %(app web)
 set :stage, :production
 set :assets_roles, [:web, :app]
 role :app, %w(sakura)
-role :db, %w(sakura), no_release: true
+# role :db, %w(sakura), no_release: true
 
 # server-based syntax
 # ======================
