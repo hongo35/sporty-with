@@ -1,18 +1,61 @@
-<div class='container'>
+<ul id='groupSelectListSp'>
+  <li>
+    <%= link_to new_event_path(gid: @group.id) do %>
+      <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
+    <% end %>
+  </li>
+  <div class='clearfix'></div>
+</ul>
+
+<div id='groupContents' class='container'>
   <div class='row'>
-    <div class='col-lg-12'>
-      <%= link_to '活動予定を登録', new_event_path(gid: @group.id), class: 'pull-right btn btn-default' %>
+    <div class='col-lg-offset-1 col-lg-10'>
+      <div class='pull-left'>
+        <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @group.name %>」の活動予定</h3>
+      </div>
+      <div class='pc pull-right' style='margin-top: 20px;'>
+        <%= link_to new_event_path(gid: @group.id), class: 'custom-btn' do %>
+        <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
+        <% end %>
+      </div>
     </div>
   </div>
   <div class='row'>
-    <div class='col-lg-12'>
-      <table class='table table-bordered'>
-        <tbody>
+    <div class='col-lg-offset-1 col-lg-10'>
+
+      <table id='eventIndexTable' class='table table-bordered'>
         <% @events.each do |e| %>
-         <tr><td><%= e.message %></td></tr>
+        <tr>
+          <td>
+            <h4><%= link_to e.subject, event_path(e.id) %></h4>
+            <p class='ts'><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 <%= e.end_at.strftime('%-m月%-d日 %-H:%M')%></p>
+            <p class='body'><%= e.body.presence || '-----' %></p>
+          </td>
+        </tr>
         <% end %>
-        </tbody>
       </table>
+
+<!--
+      <div id='calendar'></div>
+-->
     </div>
   </div>
 </div>
+
+
+<%= javascript_tag do %>
+/*
+$(function() {
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay'
+		},
+		lang: 'ja',
+		events: <%#= raw @events.to_json %>
+
+	});
+});
+*/
+<% end %>

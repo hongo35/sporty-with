@@ -23,7 +23,8 @@ class ImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  # process scale: [200, 300]
+  # process scale: [150, 150]
+  process :resize_to_limit => [150, 150]
 
   # def scale(width, height)
   #   # do something
@@ -42,8 +43,16 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    # "something.jpg" if original_filename
+    "#{secure_token}_#{file.extension}" if original_filename.present?
+  end
+
+  protected
+
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
+  end
 
 end

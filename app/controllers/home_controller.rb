@@ -6,6 +6,14 @@ class HomeController < ApplicationController
     GroupUser.where('user_id = ?', current_user.id).each do |gu|
       gids << gu.group_id
     end
-    @groups = Group.where('id = ?', gids)
+    @groups = Group.where('id IN (?)', gids)
+
+    @clubs = {}
+    Club.all.each do |c|
+      @clubs[c.id] = {
+        'name' => c.name,
+        'url'  => c.url
+      }
+    end
   end
 end

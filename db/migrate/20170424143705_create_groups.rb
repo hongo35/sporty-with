@@ -4,7 +4,7 @@ class CreateGroups < ActiveRecord::Migration[5.0]
       t.integer :club_id, null: false
       t.string :name, null: false
       t.integer :sport_id, null: false
-      t.string :img, null: false
+      t.string :img, null: false, default: ''
 
       t.timestamps null: false
     end

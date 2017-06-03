@@ -1,25 +1,63 @@
-<div class='container'>
-  <div class='row'>
-    <div class=col-lg-12'>
-      <div id='welcomeHeader'>
-        <h1><span>Sporty-with</span>&nbsp;みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
+<div class='row'>
+  <div class='col-lg-offset-2 col-lg-8'>
+    <!-- PC用 -->
+    <div id='welcomeMain'>
+      <div id='welcomeMainDesc' class='pull-left'>
+        <h1><span>Sporty-with</span><br/>みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
+      </div>
+      <div id='welcomeMainImg' class='pull-right'>
+        <%= image_tag '19191252.jpg' %>
+      </div>
+      <div class='clearfix'></div>
+      <div id='userRegisterBtn' class='col-lg-12'>
+        <%= link_to new_registration_path('user'), class: 'custom-btn' do %>
+          <i class='fa fa-user'></i>&nbsp;ユーザー登録
+        <% end %>
       </div>
     </div>
-  </div>
 
-  <div class='row'>
-    <div class='col-lg-12'>
-      <div id='welcomeSearch'>
-        <%= form_tag search_clubs_path, {method: :get, class: 'form-inline'} do %>
-          <%= select_tag 'cid', options_for_select(@clubs), class: 'form-control' %>
-          <%= submit_tag '検索', class: 'btn btn-lg btn-default' %>
+    <!-- スマホ用 -->
+    <div id='welcomeMainSp'>
+      <div id='welcomeMainImgSp'>
+        <%= image_tag '19191252.jpg' %>
+      </div>
+      <div id='welcomeMainDescSp'>
+        <h1><span>Sporty-with</span><br/>みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
+      </div>
+      <div id='userRegisterBtn' class='col-lg-12'>
+        <%= link_to new_registration_path('user'), class: 'custom-btn' do %>
+          <i class='fa fa-user'></i>&nbsp;ユーザー登録
         <% end %>
       </div>
     </div>
   </div>
+</div>
 
-  <div class='row'>
-    <div class='col-lg-12'>
+<div class='row bg-lgray'>
+  <div class='col-lg-offset-3 col-lg-6'>
+    <div class='row'>
+      <div id='selectRegGroup' class='col-lg-6'>
+        <%= link_to image_tag('group.png'), search_welcome_index_path %>
+        <h4>チームを登録</h4>
+        <p>あなたが所属しているチームを新規に登録します。</p>
+        <div class='custom-btn'>
+          <%= link_to search_welcome_index_path do %>
+            <i class='fa fa-plus-circle'></i>&nbsp;チームを登録
+          <% end %>
+        </div>
+      </div>
+      <div id='selectSearchGroup' class='col-lg-6'>
+        <%= link_to image_tag('search.png'), search_welcome_index_path %>
+        <h4>チームを検索</h4>
+        <p>あなたが参加したいグループを検索し、参加申請をします。</p>
+        <div class='custom-btn'>
+          <%= link_to search_welcome_index_path do %>
+            <i class='fa fa-search'></i>&nbsp;チームを検索
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+
+<div class='clearfix'></div>

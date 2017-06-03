@@ -1,0 +1,71 @@
+<div class='container'>
+<!--
+<div class='row'>
+<div class='back-btn col-lg-offset-2 col-lg-8'>
+<%#= link_to group_path(@event.group_id) do %>
+<i class='fa fa-backward'></i>&nbsp;戻る
+<%# end %>
+</div>
+</div>
+-->
+
+  <div class='row'>
+    <div class='col-lg-offset-2 col-lg-8'>
+      <table id='eventCommentInfo' class='table table-bordered'>
+        <tr>
+          <th>タイトル</th>
+          <td><%= @event['subject'] %></td>
+        </tr>
+        <tr>
+          <th>日時</th>
+          <td><%= @event['start_at'].strftime('%-m月%-d日 %T') %> 〜 <%= @event['end_at'].strftime('%-m月%-d日 %T') %></td>
+        </tr>
+        <tr>
+          <th>作成者</th>
+          <td><%= @event['user_id'] %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+<div class='row'>
+  <div class='col-lg-offset-2 col-lg-8'>
+    <h4><i class='fa fa-edit'></i>&nbsp;投稿する</h4>
+    <%= form_for @new_comment do |f| %>
+      <%= f.hidden_field :event_id, value: @event.id %>
+      <%= f.hidden_field :user_id, value: current_user['id'] %>
+      <%= f.hidden_field :user_name, value: current_user['name'] %>
+      <%= f.text_area :comment, class: 'form-control', rows: 3 %>
+      <div id='commentSubmitBtn'>
+        <%= f.submit '投稿', class: 'pull-right' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class='row'>
+  <div class='col-lg-offset-2 col-lg-8'>
+    <h4><i class='fa fa-list'></i>&nbsp;投稿一覧</h4>
+    <ul id='commentList'>
+      <% if @comments.blank? %>
+        <li>このイベントへの投稿はありません</li>
+      <% else %>
+        <% @comments.each do |c| %>
+        <li>
+          <div class='commentInfo'>
+            <% if c.user_name.blank? %>
+              名無しさん
+            <% else %>
+              <%= c.user_name %>
+            <% end %>
+            <span><%= c.created_at.strftime('%-m月%-d日 %-H時%-M分') %></span>
+          </div>
+          <p><%= c.comment %></p>
+        </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
+</div>

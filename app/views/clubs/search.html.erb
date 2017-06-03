@@ -14,19 +14,34 @@
     </div>
   </div>
   <div class='row'>
-  <div class='col-lg-12'>
-<h3>グループ</h3>
-  </div>
+    <div class='col-lg-12'>
+      <h3>グループ</h3>
+    </div>
   </div>
   <div class='row'>
-    <% @groups.each do |g| %>
-    <div class='col-lg-3'>
-      <table class='table table-bordered club-group'>
-        <tr><td class='group-img'><%= image_tag g.img.url %></td></tr>
-        <tr><td><%= g.name %></td></tr>
-        <tr><td>詳細(活動予定)</td></tr>
-      </table>
+    <div id='clubGroups'>
+      <% @groups.each do |g| %>
+      <div class='col-lg-4'>
+        <table class='table table-bordered'>
+          <tr><td class='group-img'><%= image_with_dummy g.img.url, {width: 150, height: 150} %></td></tr>
+          <tr><td><%= g.name %></td></tr>
+          <tr>
+            <td class='entry-btn'>
+              <%= link_to entry_group_path(g), class: 'custom-btn' do %>
+              <i class='fa fa-plus-circle'></i>&nbsp;参加したい
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td class='event-btn'>
+              <%= link_to group_path(g), class: 'custom-btn error' do %>
+              <i class='fa fa-calendar'></i>&nbsp;活動予定
+              <% end %>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <% end %>
     </div>
-    <% end %>
   </div>
 </div>

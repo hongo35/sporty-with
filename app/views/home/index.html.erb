@@ -1,20 +1,57 @@
-<div class='container'>
+<ul id='homeSelectListSp'>
+  <li>
+    <%= link_to new_group_path do %>
+      <i class='fa fa-plus-circle'></i>&nbsp;グループを登録
+    <% end %>
+  </li>
+  <li>
+    <%= link_to search_welcome_index_path do %>
+      <i class='fa fa-search'></i>&nbsp;公開グループをさがす
+    <% end %>
+  </li>
+  <div class='clearfix'></div>
+</ul>
+
+<div id='homeContents' class='container'>
   <div class='row'>
     <div class='col-lg-12'>
-      <%= link_to 'グループを登録', new_group_path, class: 'pull-right btn btn-default' %>
+      <div class='pull-left'>
+        <h3><i class='fa fa-users'></i>&nbsp;あなたが参加しているグループ</h3>
+      </div>
+      <div class='pc pull-right' style='margin-top: 20px;'>
+        <%= link_to new_group_path, class: 'custom-btn btn-margin' do %>
+          <i class='fa fa-plus-circle'></i>&nbsp;グループを登録
+        <% end %>
+        <%= link_to search_welcome_index_path, class: 'custom-btn' do %>
+          <i class='fa fa-search'></i>&nbsp;公開グループをさがす
+        <% end %>
+      </div>
     </div>
   </div>
   <div class='row'>
-    <div class='col-lg-12'>
-      <table class='table table-bordered'>
-        <tbody>
-          <% @groups.each do |g| %>
+    <div class='my-groups'>
+    <% if @groups.blank? %>
+      <div class='col-lg-12'>
+        <div class='alert alert-danger'>現在あなたが参加しているグループはありません。新しくグループを登録するか、公開グループの中から参加したいグループに参加申請をしてください。</div>
+      </div>
+    <% else %>
+      <% @groups.each do |g| %>
+      <div class='col-lg-4'>
+        <table class='table table-bordered'>
+          <tr><td class='group-img'><%= image_with_dummy g.img.url, {width: 150, height: 150} %></td></tr>
+          <tr><td><b><%= g.name %></b></td></tr>
+          <tr><td><i class='fa fa-map-marker'></i>&nbsp;<%= @clubs[g.club_id]['name'] %></td></tr>
           <tr>
-            <td><%= link_to g.name, group_path(g) %></td>
+            <td class='event-btn'>
+              <%= link_to group_path(g), class: 'custom-btn error' do %>
+              <i class='fa fa-calendar'></i>&nbsp;活動予定
+              <% end %>
+            </td>
           </tr>
-          <% end %>
-        </tbody>
-      </table>
+        </table>
+      </div>
+      <% end %>
+    <% end %>
     </div>
   </div>
 </div>

@@ -1,0 +1,477 @@
+@import 'bootstrap.min.css';
+@import 'bootstrap-datepicker.min.css';
+@import 'fullcalendar.min.css';
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require font-awesome
+*/
+
+$borderColor: #bdbdbd;
+$borderLightColor: #ddd;
+$buttonTextColor: #fff;
+$selectDarkColor: #0F76BA;
+$errorColor: #D9534F;
+$errorDarkColor: #BF4945;
+$successColor: #5cb85c;
+
+h3 {
+	line-height: 1.4em;
+}
+.row {
+	margin-right: 0;
+	margin-left: 0;
+}
+.clearfix {
+	clear: both;
+}
+img {
+	vertical-align: middle;
+	border: 0;
+}
+.header {
+	background: #fff;
+	height: 60px;
+	margin: 0;
+	border-top: solid 1px $borderColor;
+	border-bottom: solid 1px $borderColor;
+}
+.nav-help {
+	margin-right: 20px;
+	margin-top: 19px;
+}
+.navbar-fixed-top {
+	position: fixed;
+	right: 0;
+	left: 0;
+	z-index: 4000;
+	@media screen and (min-width: 769px){
+		min-width: 1070px;
+	}
+	top: 0;
+	border-width: 0 0 1px;
+}
+.no-decorate {
+	outline: none;
+	text-decoration: none;
+	color: #616161;
+}
+.header-logo {
+	margin: 16px;
+}
+ .pull-left {
+ 	float: left;
+ }
+ .pull-right {
+ 	float: right;
+ }
+.whole-container {
+	min-height: 500px;
+	padding-top: 60px;
+}
+.footer-container {
+	border-top: solid 1px $borderColor;
+	padding: 0 30px;
+	margin: 0 auto;
+}
+.list-inline {
+	padding-left: 0;
+	margin-left: -5px;
+	list-style: none;
+}
+.text-center {
+	text-align: center;
+}
+#loginForm, #newGroupForm, #newEventForm {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	@media screen and (min-width: 769px) {
+		padding: 30px;
+		border: solid 1px $borderColor;
+	}
+}
+.capt {
+	margin-bottom: 12px;
+}
+.txt-caption {
+	margin-right: 12px;
+	font-size: 24px;
+	font-weight: bold;
+}
+.fb-login {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	background-color: #4568b2;
+	text-align: center;
+}
+.fb-login a {
+	display: block;
+	color: #fff;
+	font-size: 20px;
+	font-weight: bold;
+}
+.login-or {
+	margin: 20px 0;
+	width: 100%;
+	text-align: center;
+}
+.login-form-field {
+	margin-bottom: 10px;
+	input {
+		border: solid 1px $borderColor;
+		width: 100%;
+		height: 50px;
+		font-size: 20px;
+		padding: 10px;
+	}
+}
+.login-form-remember label {
+	padding-left: 10px;
+	font-weight: normal;
+}
+.login-form-submit, .new-group-submit, .new-event-submit {
+	margin-top: 10px;
+	input {
+		background-color: #ff7e82;
+		border: 0;
+		width: 100%;
+		height: 50px;
+		font-size: 20px;
+		font-weight: bold;
+		color: #fff;
+	}
+}
+.login-password-forget {
+	margin-top: 20px;
+}
+.back-btn {
+	@media screen and (max-width:640px) {
+		display: none;
+	}
+	padding: 0;
+	margin-top: 40px;
+	a {
+		background-color: #f5f5f5;
+		border: solid 1px $borderColor;
+		color: #555;
+		min-width: 110px;
+		padding: 5px 8px;
+		outline: none;
+		cursor: pointer;
+		text-align: center;
+		display: inline-block;
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+.custom-btn {
+	min-width: 110px;
+	padding: 10px 20px;
+	font-size: 16px;
+	outline: none;
+	color: #fff;
+	background-color: #1085D4;
+	text-align: center;
+	display: inline-block;
+	&:hover,&:active {
+		background: $selectDarkColor;
+		color: $buttonTextColor;
+	}
+	&:focus {
+		text-decoration: none;
+	}
+	&.error {
+		background: $errorColor;
+		&:hover, &:active {
+			background: $errorDarkColor;
+		}
+	}
+	&.success {
+		background-color: $successColor;
+	}
+}
+.event-btn, .entry-btn {
+	text-align: center;
+	a {
+		width: 100%;
+	}
+}
+#clubInfo {
+	margin-top: 50px;
+	.club-img {
+		text-align: center;
+		width: 20%;
+		img {
+			width: 150px;
+			height: 150px;
+		}
+	}
+}
+#welcomeHeader {
+	padding: 50px 25px 0 25px;
+	width: 70%;
+	h1 {
+		font-size: 38px;
+		line-height: 56px;
+		color: #4848;
+		font-weight: 300;
+		span {
+			font-weight: 700;
+			color: #1085D4;
+		}
+	}
+}
+#welcomeSearch {
+	padding: 50px 25px 0 25px;
+	text-align: center;
+	select {
+		width: 60%;
+		height: 46px;
+	}
+}
+.my-groups, #clubGroups {
+	margin-top: 10px;
+	table {
+		.group-img {
+			text-align: center;
+		}
+	}
+}
+#calendar {
+	margin-top: 40px;
+}
+.event-setting-calendar {
+	width: 60%;
+	height: 26px;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 30px;
+	border: solid 1px $borderColor;
+}
+.event-setting-time {
+	width: 30%;
+	height: 26px;
+	background-color: #fff;
+}
+.btn-margin {
+	margin-right: 10px;
+}
+#selectRegGroup, #selectSearchGroup {
+	margin-top: 30px;
+	text-align: center;
+	a {
+		display: block;
+		color: #fff;
+	}
+	h4 {
+		padding: 20px 0;
+		font-weight: bold;
+	}
+	p {
+		text-align: center;
+		font-size: 14px;
+		margin-bottom: 20px;
+	}
+	div.custom-btn {
+		margin-bottom: 20px;
+	}
+}
+.bg-white {
+	padding: 30px 0;
+}
+.bg-lgray {
+	margin-top: 25px;
+	background-color: #f5f5f5;
+	@media screen and (min-width: 769px){
+		padding: 30px 0;
+	}
+}
+#welcomeMain {
+	@media screen and (max-width:640px){
+		display: none;
+	}
+	margin-top: 25px;
+}
+#welcomeMainSp {
+	display: none;
+	@media screen and (max-width:640px) {
+		display: block;
+		#welcomeMainImgSp {
+			margin-top: 10px;
+			text-align: center;
+			img {
+				width: 80%;
+			}
+		}
+		#welcomeMainDescSp {
+			padding: 10px;
+			h1 {
+				margin-top: 5px;
+				font-size: 25px;
+				line-height: 36px;
+				color: #4848;
+				font-weight: 300;
+				span {
+					font-weight: 700;
+					color: #1085D4;
+				}
+			}
+		}
+	}
+}
+#welcomeMainDesc {
+	width: 55%;
+	h1 {
+		font-size: 36px;
+		line-height: 56px;
+		color: #4848;
+		font-weight: 300;
+		span {
+			font-weight: 700;
+			color: #1085D4;
+		}
+	}
+}
+#welcomeMainImg {
+	margin-top: 20px;
+	width: 45%;
+	img {
+		width: 300px;
+		height: 222px;
+	}
+}
+#userRegisterBtn {
+	@media screen and (min-width: 769px){
+		margin-top: 25px;
+	}
+	text-align: center;
+}
+#eventCommentInfo {
+	margin-top: 25px;
+}
+#commentSubmitBtn {
+	text-align: center;
+	margin-top: 5px;
+	input {
+		min-width: 110px;
+		padding: 5px 20px;
+		font-size: 15px;
+		outline: none;
+		color: #fff;
+		background-color: #1085D4;
+		text-align: center;
+		display: inline-block;
+		border: none;
+	}
+}
+#commentList {
+	padding: 0;
+	margin-top: 10px;
+	li {
+		list-style-type: none;
+		border: solid 1px $borderColor;
+		padding: 10px;
+		margin-bottom: 10px;
+		.commentInfo {
+			span {
+				margin-left: 15px;
+				color: #ccc;
+			}
+		}
+	}
+}
+#eventIndexTable {
+	margin-top: 10px;
+	td {
+		padding: 15px;
+		p.ts {
+			font-size: 16px;
+			font-weight: bold;
+		}
+	}
+}
+#homeSelectListSp {
+	position: fixed;
+	z-index: 4000;
+	padding: 0;
+	width: 100%;
+	li {
+		background-color: #fff;
+		border-left: solid 1px $borderColor;
+		border-right: solid 1px $borderColor;
+		border-bottom: solid 1px $borderColor;
+		list-style-type: none;
+		float: left;
+		width: 50%;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+		a {
+			color: #3e515c;
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+}
+#homeContents {
+	@media screen and (max-width:640px) {
+		margin-top: 55px;
+	}
+	.pc {
+		@media screen and (max-width:640px) {
+			display: none;
+		}
+	}
+}
+#groupSelectListSp {
+	position: fixed;
+	z-index: 4000;
+	padding: 0;
+	width: 100%;
+	li {
+		background-color: #fff;
+		border-left: solid 1px $borderColor;
+		border-right: solid 1px $borderColor;
+		border-bottom: solid 1px $borderColor;
+		list-style-type: none;
+		float: left;
+		width: 100%;
+		text-align: center;
+		height: 50px;
+		line-height: 50px;
+		a {
+			color: #3e515c;
+			font-size: 14px;
+			font-weight: bold;
+		}
+	}
+}
+#groupContents {
+	@media screen and (max-width:640px) {
+		margin-top: 55px;
+	}
+	.pc {
+		@media screen and (max-width:640px) {
+			display: none;
+		}
+	}
+}
+.alert {
+	margin-bottom: 0;
+}

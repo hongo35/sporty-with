@@ -13,4 +13,5 @@
 //= require jquery
 //= require jquery_ujs
 //= require moment
+//= require fullcalendar.min
 //= require_tree .

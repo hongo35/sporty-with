@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170429053843) do
+ActiveRecord::Schema.define(version: 20170509145625) do
 
   create_table "clubs", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       null: false
@@ -20,14 +20,25 @@ ActiveRecord::Schema.define(version: 20170429053843) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "events", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
-    t.integer  "group_id",                 null: false
+  create_table "event_comments", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.integer  "event_id",                 null: false
     t.integer  "user_id",                  null: false
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.text     "message",    limit: 65535
+    t.string   "user_name",                null: false
+    t.text     "comment",    limit: 65535, null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.index ["event_id"], name: "index_event_comments_on_event_id", using: :btree
+  end
+
+  create_table "events", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.integer  "group_id",                              null: false
+    t.integer  "user_id",                               null: false
+    t.string   "subject",                  default: "", null: false
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.text     "body",       limit: 65535
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   create_table "group_users", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
@@ -39,12 +50,12 @@ ActiveRecord::Schema.define(version: 20170429053843) do
   end
 
   create_table "groups", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
-    t.integer  "club_id",    null: false
-    t.string   "name",       null: false
-    t.integer  "sport_id",   null: false
-    t.string   "img",        null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "club_id",                 null: false
+    t.string   "name",                    null: false
+    t.integer  "sport_id",                null: false
+    t.string   "img",        default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "sports", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
