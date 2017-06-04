@@ -4,8 +4,8 @@ require 'omniauth-facebook'
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   config.omniauth(:facebook,
-    Rails.application.config.facebook_app_id,
-    Rails.application.config.facebook_app_secret,
+    Rails.application.secrets.facebook_app_id,
+    Rails.application.secrets.facebook_app_secret,
     {:scope => 'email'}
   )
   

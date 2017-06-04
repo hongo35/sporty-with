@@ -54,6 +54,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  config.facebook_app_id = '1959726724272160'
-  config.facebook_app_secret = '96f803bb4dffea61b65b09a4d19ce818'
 end
