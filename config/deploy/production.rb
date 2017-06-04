@@ -1,4 +1,4 @@
-server 'sakura', user: 'hongo35', roles: %(app web)
+# server 'sakura', user: 'hongo35', roles: %(app web)
 set :stage, :production
 set :assets_roles, [:web, :app]
 role :app, %w(sakura)
