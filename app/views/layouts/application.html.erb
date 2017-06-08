@@ -17,7 +17,7 @@
       <div class='pull-right nav-help'>
         <% if current_user %>
           <% unless current_user.profile_img_url.blank? %>
-            <%= image_tag(current_user.profile_img_url, width: 40) %>
+            <%= image_tag(current_user.profile_img_url, width: 30) %>
           <% end %>
           <%= link_to 'ログアウト', destroy_user_session_path, method: :delete %>
         <% else %>
