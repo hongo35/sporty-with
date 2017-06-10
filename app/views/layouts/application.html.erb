@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang='ja'>
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
-    <title>SportyWith</title>
+    <title>Sporty-with</title>
+    <meta name='description' content='スポーツを楽しむ人の掲示板。次の活動予定をシェアしたり、これまでの活動履歴を管理したりすることができます。' />
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MTRGQF7');</script>
+    <!-- End Google Tag Manager -->
   </head>
 
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTRGQF7"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class='navbar-fixed-top header'>
       <div class='pull-left'>
       <%= link_to image_tag('logo.png', {class: 'header-logo', width: 150, height: 27}), root_path, class: 'no-decorate' %>
