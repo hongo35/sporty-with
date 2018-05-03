@@ -8,9 +8,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    user = User.find_by('email = ?', params['user']['email'])
+    return redirect_to new_registration_path('user'), alert: 'メールアドレスがすでに利用されています。' if user.present?
+
+    super
+  end
 
   # GET /resource/edit
   # def edit

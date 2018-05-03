@@ -40,14 +40,11 @@
     </div>
 
     <div class='whole-container'>
-<!--
-      <%# if notice %>
-        <div class='alert alert-info'><%#= notice %></div>
-	  <%# end %>
-      <%# if alert %>
-        <div class='alert alert-danger'><%#= alert %></div>
-      <%# end %>
--->
+      <% flash.each do |k, v| %>
+        <% k = 'info' if k == 'notice' %>
+        <% k = 'danger' if k == 'alert' %>
+        <%= content_tag :div, v, class: "col-lg-offset-2 col-lg-8 alert alert-#{k}", style: 'margin-top: 25px;' %>
+      <% end %>
       <%= yield %>
     </div>
 
