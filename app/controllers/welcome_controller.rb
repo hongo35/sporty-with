@@ -4,6 +4,9 @@ class WelcomeController < ApplicationController
   end
 
   def search
+    binding.pry
+
+
     @clubs = []
     Club.all.each do |c|
       @clubs << [c.name, c.id]

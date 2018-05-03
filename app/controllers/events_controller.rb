@@ -8,8 +8,12 @@ class EventsController < ApplicationController
   end
 
   def new
+    tu = TeamUser.find_by(team_id: params['tid'], user_id: current_user.id)
+
+    redirect_to teams_path, danger: 'アクセスが許可されていません。' if tu.blank?
+
     @event = Event.new
-    @group = Group.find_by(id: params['gid'])
+    @team = Team.find_by(id: params['tid'])
 
     @today = Time.zone.now.strftime('%F')
 
@@ -46,7 +50,7 @@ class EventsController < ApplicationController
     end_at   = "#{params['end_date']} #{params['end_time']}:00"
 
     e = Event.new(
-      group_id: event_params['group_id'],
+      team_id: event_params['team_id'],
       user_id: current_user.id,
       subject: event_params['subject'],
       start_at: start_at,
@@ -55,8 +59,10 @@ class EventsController < ApplicationController
     )
 
     if e.save
-      redirect_to group_path(event_params['group_id']), notice: '活動予定を作成しました'
+      redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'
     end
+
+    # team_members = TeamUser.where('team_id = ?', )
 
     # グループメンバーにメール送信
   end
@@ -64,6 +70,6 @@ class EventsController < ApplicationController
   private
 
   def event_params
-    params.require(:event).permit(:group_id, :user_id, :subject, :start_at, :end_at, :body)
+    params.require(:event).permit(:team_id, :user_id, :subject, :start_at, :end_at, :body)
   end
 end

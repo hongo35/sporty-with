@@ -15,14 +15,9 @@ Rails.application.routes.draw do
     end
   end
   resources :home
-  resources :clubs do
+  resources :teams, only: [:index, :show, :new, :create]  do
     collection do
       get 'search'
-    end
-  end
-  resources :groups do
-    member do
-      get 'entry'
     end
   end
   resources :events

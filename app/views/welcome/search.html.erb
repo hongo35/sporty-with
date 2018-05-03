@@ -2,7 +2,7 @@
   <div class='row'>
     <div class=col-lg-12'>
       <div id='welcomeHeader'>
-        <h1><span>Sporty-with</span>&nbsp;みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
+        <h1><span>スポコミュ</span>&nbsp;みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
       </div>
     </div>
   </div>
@@ -11,7 +11,8 @@
     <div class='col-lg-12'>
       <div id='welcomeSearch'>
         <%= form_tag search_clubs_path, {method: :get, class: 'form-inline'} do %>
-          <%= select_tag 'cid', options_for_select(@clubs), class: 'form-control' %>
+          <%#= select_tag 'cid', options_for_select(@clubs), class: 'form-control' %>
+          <%= text_field_tag 'q', '', class: 'form-control' %>
           <%= submit_tag '検索', class: 'btn btn-lg btn-default' %>
         <% end %>
       </div>

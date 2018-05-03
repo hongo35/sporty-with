@@ -1,6 +1,6 @@
 <ul id='groupSelectListSp'>
   <li>
-    <%= link_to new_event_path(gid: @group.id) do %>
+    <%= link_to new_event_path(tid: @team.id) do %>
       <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
     <% end %>
   </li>
@@ -11,10 +11,10 @@
   <div class='row'>
     <div class='col-lg-offset-1 col-lg-10'>
       <div class='pull-left'>
-        <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @group.name %>」の活動予定</h3>
+        <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @team.name %>」の活動予定</h3>
       </div>
       <div class='pc pull-right' style='margin-top: 20px;'>
-        <%= link_to new_event_path(gid: @group.id), class: 'custom-btn' do %>
+        <%= link_to new_event_path(tid: @team.id), class: 'custom-btn' do %>
         <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
         <% end %>
       </div>
