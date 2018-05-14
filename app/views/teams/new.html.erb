@@ -10,8 +10,13 @@
     <div id='newGroupForm' class='col-lg-offset-2 col-lg-8'>
       <%= form_for @team, html: {class: 'form-horizontal', multipart: true} do |f| %>
       <div class='data-contents-row'>
-        <div class='data-contents-label'><%= f.label :name, 'チーム名', class: 'control-label' %><span class='label label-danger'>必須</span></div>
-        <div class='data-contents-data'><%= f.text_field :name, class: 'form-control' %></div>
+        <div class='data-contents-label'><%= f.label :private_flag, '状態', class: 'control-label' %><span class='label label-danger'>必須</span></div>
+        <%= f.radio_button :private_flag, 0, {checked: true} %>公開&nbsp;&nbsp;
+        <%= f.radio_button :private_flag, 1 %>非公開
+      </div>
+      <div class='data-contents-row'>
+        <div class='data-contents-label'><%= f.label :team_name, 'チーム名', class: 'control-label' %><span class='label label-danger'>必須</span></div>
+        <div class='data-contents-data'><%= f.text_field :team_name, class: 'form-control' %></div>
       </div>
       <div class='data-contents-row'>
         <div class='data-contents-label'><%= f.label :sport_id, 'スポーツ', class: 'control-label' %><span class='label label-danger'>必須</span></div>

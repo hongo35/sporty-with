@@ -6,7 +6,6 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find_by(id: params['id'])
-
     @events = Event.where(team_id: params['id']).order(start_at: :desc)
   end
 
@@ -50,6 +49,6 @@ class TeamsController < ApplicationController
   private
 
   def team_params
-    params.require(:team).permit(:name, :sport_id, :location, :img, :img_cache)
+    params.require(:team).permit(:private_flag, :team_name, :sport_id, :location, :img, :img_cache)
   end
 end

@@ -2,7 +2,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   include Devise::Controllers::Rememberable
 
   def facebook
-    user = User.find_by('email = ?', request.env["omniauth.auth"].info.email)
+    user = User.find_by("provider != 'facebook' AND email = ?", request.env["omniauth.auth"].info.email)
     return redirect_to new_registration_path('user'), alert: 'メールアドレスがすでに利用されています。' if user.present?
 
     @user = User.find_for_facebook_oauth(request.env["omniauth.auth"], current_user)

@@ -449,27 +449,30 @@ img {
 	}
 }
 #groupSelectListSp {
-	position: fixed;
-	z-index: 4000;
-	padding: 0;
-	width: 100%;
-	li {
-		background-color: #fff;
-		border-left: solid 1px $borderColor;
-		border-right: solid 1px $borderColor;
-		border-bottom: solid 1px $borderColor;
-		list-style-type: none;
-		float: left;
-		width: 100%;
-		text-align: center;
-		height: 50px;
-		line-height: 50px;
-		a {
-			color: #3e515c;
-			font-size: 14px;
-			font-weight: bold;
-		}
-	}
+  position: fixed;
+  z-index: 4000;
+  padding: 0;
+  width: 100%;
+  @media screen and (min-width:769px) {
+    display: none;
+  }
+  li {
+    background-color: #fff;
+    border-left: solid 1px $borderColor;
+    border-right: solid 1px $borderColor;
+    border-bottom: solid 1px $borderColor;
+    list-style-type: none;
+    float: left;
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+    a {
+      color: #3e515c;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
 }
 #groupContents {
 	@media screen and (max-width:640px) {

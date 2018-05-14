@@ -43,7 +43,7 @@
       <% flash.each do |k, v| %>
         <% k = 'info' if k == 'notice' %>
         <% k = 'danger' if k == 'alert' %>
-        <%= content_tag :div, v, class: "col-lg-offset-2 col-lg-8 alert alert-#{k}", style: 'margin-top: 25px;' %>
+        <%= content_tag :div, v, class: "alert alert-#{k}" %>
       <% end %>
       <%= yield %>
     </div>
