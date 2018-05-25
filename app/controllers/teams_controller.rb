@@ -2,6 +2,7 @@ class TeamsController < ApplicationController
   # before_action  :authenticate_user!
 
   def index
+    @teams = Team.all
   end
 
   def show
@@ -24,12 +25,7 @@ class TeamsController < ApplicationController
   end
 
   def search
-    @club = Club.find_by(id: params['cid'])
-    if @club.blank?
-      redirect_to home_index_path, alert: 'スポーツクラブを選択してください'
-    end
-    
-    # @teams = Team.where(club_id: params['cid'])
+    redirect_to teams_path(q: params[:q])
   end
 
   def create

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :home
   resources :teams, only: [:index, :show, :new, :create]  do
     collection do
-      get 'search'
+      post 'search'
     end
   end
   resources :events
