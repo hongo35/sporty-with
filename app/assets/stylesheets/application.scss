@@ -358,15 +358,23 @@ img {
 		height: 213px;
 	}
 }
-#userRegisterBtn {
-	margin-top: 25px;
+#userRegisterBtn, #userLoginBtn {
+	margin-top: 30px;
 	text-align: center;
+	a.custom-btn {
+		width: 50%;
+	}
 	@media screen and (max-width:640px) {
 		margin-top: 5px;
 		a.custom-btn {
 			width: 100%;
 		}
 	}
+}
+#userLoginBtn a.custom-btn {
+	border: solid 1px #1085D4;
+	color: #1085D4;
+	background-color: #fff;
 }
 #eventCommentInfo {
 	margin-top: 25px;
