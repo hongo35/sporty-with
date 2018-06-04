@@ -5,7 +5,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to search_welcome_index_path do %>
+    <%= link_to teams_path do %>
       <i class='fa fa-search'></i>&nbsp;公開チームをさがす
     <% end %>
   </li>
@@ -22,14 +22,14 @@
         <%= link_to new_team_path, class: 'custom-btn btn-margin' do %>
           <i class='fa fa-plus-circle'></i>&nbsp;チームを登録
         <% end %>
-        <%= link_to search_teams_path, class: 'custom-btn' do %>
+        <%= link_to teams_path, class: 'custom-btn' do %>
           <i class='fa fa-search'></i>&nbsp;公開チームをさがす
         <% end %>
       </div>
     </div>
   </div>
   <div class='row'>
-    <div class='my-groups'>
+    <div class='team-list'>
     <% if @teams.blank? %>
       <div class='col-lg-12'>
         <div class='alert alert-danger'>現在あなたが参加しているチームはありません。新しくチームを登録するか、公開チームの中から参加したいチームに参加申請をしてください。</div>

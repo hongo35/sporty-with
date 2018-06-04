@@ -237,20 +237,24 @@ img {
 	}
 }
 #welcomeSearch {
-	padding: 50px 25px 0 25px;
-	text-align: center;
-	input[type=text] {
-		width: 60%;
-		height: 46px;
-	}
+  margin-top: 25px;
+  padding: 0 25px;
+  text-align: center;
+  input[type=text] {
+    width: 60%;
+    height: 46px;
+  }
 }
-.my-groups, #clubGroups {
-	margin-top: 10px;
-	table {
-		.group-img {
-			text-align: center;
-		}
-	}
+#teamListTitle {
+ padding: 10px; 
+}
+.team-list, #clubGroups {
+  margin-top: 10px;
+  table {
+    .group-img {
+      text-align: center;
+    }
+  }
 }
 #calendar {
 	margin-top: 40px;

@@ -2,7 +2,13 @@ class TeamsController < ApplicationController
   # before_action  :authenticate_user!
 
   def index
-    @teams = Team.all
+    if params[:q].present?
+      # @teams = Team.query(params[:q]).where('private_flag = 0').page(params[:page]).per(params[:per])
+      @teams = Team.query(params[:q]).where('private_flag = 0')
+    else
+      # @teams = Team.query(params[:q]).where('private_flag = 0').page(params[:page]).per(params[:per])
+      @teams = Team.where('private_flag = 0')
+    end
   end
 
   def show

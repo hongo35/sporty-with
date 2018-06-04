@@ -59,12 +59,17 @@ class EventsController < ApplicationController
     )
 
     if e.save
+      uids = []
+      uids = TeamUser.where('team_id = ?', event_params['team_id']).pluck(:user_id)
+
+      to_email = []
+      to_email = User.where('id IN (?)', uids).pluck(:email)
+
+      # グループメンバーにメール送信
+      UserMailer.delivery_email(to_email).deliver
+
       redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'
     end
-
-    # team_members = TeamUser.where('team_id = ?', )
-
-    # グループメンバーにメール送信
   end
 
   private
