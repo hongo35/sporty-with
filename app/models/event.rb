@@ -1,3 +1,3 @@
 class Event < ActiveRecord::Base
-  # validates :subject, presence: true
+  has_many :event_comments, dependent: :destroy
 end

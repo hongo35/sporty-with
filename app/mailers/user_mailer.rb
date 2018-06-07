@@ -10,4 +10,14 @@ class UserMailer < ApplicationMailer
       format.text
     end
   end
+
+  def apply_email(to_email)
+    mail(
+      subject: '【スポコミュ】チームへの参加申請がありました。',
+      to: to_email,
+      from: 'スポコミュ <sports.x.community@gmail.com>'
+    ) do |format|
+      format.text
+    end
+  end
 end

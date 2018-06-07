@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :show, :new, :create]  do
     collection do
       post 'search'
+      post 'apply'
     end
   end
   resources :events

@@ -49,6 +49,8 @@ class EventsController < ApplicationController
     start_at = "#{params['start_date']} #{params['start_time']}:00"
     end_at   = "#{params['end_date']} #{params['end_time']}:00"
 
+    return redirect_to new_event_path(tid: event_params['team_id']), alert: 'タイトルを入力してください' if event_params['subject'].blank?
+
     e = Event.new(
       team_id: event_params['team_id'],
       user_id: current_user.id,

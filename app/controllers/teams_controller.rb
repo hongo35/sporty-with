@@ -12,8 +12,14 @@ class TeamsController < ApplicationController
   end
 
   def show
-    @team = Team.find_by(id: params['id'])
-    @events = Event.where(team_id: params['id']).order(start_at: :desc)
+    @team      = Team.find_by(id: params['id'])
+    @events    = Event.where(team_id: params['id']).order(start_at: :desc)
+
+    @current_user = current_user
+
+    if current_user.present?
+      @team_user = TeamUser.find_by(team_id: @team.id, user_id: current_user.id)
+    end
   end
 
   def new
@@ -41,11 +47,32 @@ class TeamsController < ApplicationController
       TeamUser.create(
         team_id: t.id,
         user_id: current_user.id,
-        role: 0
+        role: 1
       )
     end
 
     redirect_to home_index_path, notice: 'チームを作成しました'
+  end
+
+  def apply
+    team_id = params['team_id']
+
+    tu = TeamUser.new(
+      team_id: team_id,
+      user_id: current_user.id,
+      role: 0
+    )
+
+    if tu.save
+      admin_uids = TeamUser.where('team_id = ?', team_id).pluck(:user_id)
+
+      to_email = User.where('id IN (?)', admin_uids).pluck(:email)
+
+      # グループオーナーにメール送信
+      UserMailer.apply_email(to_email).deliver
+
+      redirect_to team_path(team_id), notice: '参加申請完了'
+    end
   end
 
   private
