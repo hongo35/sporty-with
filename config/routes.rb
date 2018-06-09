@@ -19,6 +19,8 @@ Rails.application.routes.draw do
     collection do
       post 'search'
       post 'apply'
+      get 'apply_check'
+      post 'permit_apply'
     end
   end
   resources :events

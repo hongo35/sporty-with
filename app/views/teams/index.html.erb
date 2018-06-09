@@ -1,13 +1,4 @@
 <div class='container'>
-<!--
-  <div class='row'>
-    <div class=col-lg-12'>
-      <div id='welcomeHeader'>
-        <h1><span>スポコミュ</span>&nbsp;みんなでスポーツを楽しもう。毎日を楽しく健康に。</h1>
-      </div>
-    </div>
-  </div>
--->
   <div class='row'>
     <div id="welcomeSearch" class='col-lg-12'>
       <div class="well">
@@ -18,7 +9,6 @@
       </div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-lg-12">
       <h3 id="teamListTitle"><i class="fa fa-cube"></i>&nbsp;チーム一覧</h3>
@@ -26,16 +16,9 @@
         <% @teams.each do |t|%>
         <div class='col-lg-4'>
           <table class='table table-bordered'>
-            <tr><td class='group-img'><%= image_with_dummy t.img.url, {width: 150, height: 150} %></td></tr>
-            <tr><td><b><%= t.team_name %></b></td></tr>
+            <tr><td class='group-img'><%= link_to image_with_dummy(t.img.url, {width: 150, height: 150}), team_path(t) %></td></tr>
+            <tr><td><b><%= link_to t.team_name, team_path(t) %></b><br/>[メンバー数: <%= t.team_users.where('role != 0').count %>名]</td></tr>
             <tr><td><i class='fa fa-map-marker'></i>&nbsp;<%= t.location %></td></tr>
-            <tr>
-              <td class='event-btn'>
-                <%= link_to team_path(t), class: 'custom-btn error' do %>
-                <i class='fa fa-calendar'></i>&nbsp;詳細
-                <% end %>
-              </td>
-            </tr>
           </table>
         </div>
         <% end %>

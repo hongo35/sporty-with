@@ -10,17 +10,39 @@
 <% end %>
 
 <div id='groupContents' class='container'>
+  <% if @apply_cnt > 0 %>
+  <div class="row">
+    <div class='col-lg-offset-1 col-lg-10'>
+      <div id="requestView">
+        <i class="fa fa-info-circle"></i>
+        <div class="request-text">
+          <%= link_to "#{@apply_cnt}人の参加リクエストがあります。", apply_check_teams_path(tid: @team.id) %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
   <div class='row'>
     <div class='col-lg-offset-1 col-lg-10'>
       <div class='pull-left'>
         <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @team.team_name %>」の活動予定</h3>
       </div>
       <% if @current_user.present? %>
-      <div class='pc pull-right' style='margin-top: 20px;'>
-        <%= link_to new_event_path(tid: @team.id), class: 'custom-btn' do %>
-        <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
+        <% if @team_user.present? %>
+        <div class='pc pull-right' style='margin-top: 20px;'>
+          <%= link_to new_event_path(tid: @team.id), class: 'custom-btn' do %>
+          <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
+          <% end %>
+        </div>
+        <% else %>
+        <div class='pc pull-right' style='margin-top: 20px;'>
+        <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
+          <%= hidden_field_tag :team_id, @team.id %>
+          <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
         <% end %>
-      </div>
+        </div>
+        <% end %>
       <% end %>
     </div>
   </div>

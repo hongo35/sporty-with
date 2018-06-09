@@ -2,7 +2,11 @@ class EventsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @event       = Event.find_by(id: params['id'])
+    @event = Event.find_by(id: params['id'])
+
+    tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
+    redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
+
     @new_comment = EventComment.new
     @comments    = EventComment.where(event_id: @event.id).order(created_at: :desc)
   end

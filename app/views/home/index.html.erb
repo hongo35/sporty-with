@@ -23,7 +23,7 @@
           <i class='fa fa-plus-circle'></i>&nbsp;チームを登録
         <% end %>
         <%= link_to teams_path, class: 'custom-btn' do %>
-          <i class='fa fa-search'></i>&nbsp;公開チームをさがす
+          <i class='fa fa-search'></i>&nbsp;チームをさがす
         <% end %>
       </div>
     </div>
@@ -45,15 +45,10 @@
       <% @teams.each do |t| %>
       <div class='col-lg-4'>
         <table class='table table-bordered'>
-          <tr><td class='group-img'><%= image_with_dummy t.img.url, {width: 150, height: 150} %></td></tr>
-          <tr><td><b><%= t.team_name %></b></td></tr>
-          <tr><td><i class='fa fa-map-marker'></i>&nbsp;<%= t.location %></td></tr>
+          <tr><td class='group-img'><%= link_to image_with_dummy(t.img.url, {width: 150, height: 150}), team_path(t) %></td></tr>
+          <tr><td><b><%= link_to t.team_name, team_path(t)%></b><br/>[メンバー数 : <%= @team_member_cnt[t.id]%>名]</td></tr>
           <tr>
-            <td class='event-btn'>
-              <%= link_to team_path(t), class: 'custom-btn error' do %>
-              <i class='fa fa-calendar'></i>&nbsp;活動予定
-              <% end %>
-            </td>
+            <td><i class='fa fa-map-marker'></i>&nbsp;<%= t.location %></td>
           </tr>
         </table>
       </div>

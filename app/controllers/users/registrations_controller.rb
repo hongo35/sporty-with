@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
@@ -13,6 +15,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return redirect_to new_registration_path('user'), alert: 'メールアドレスがすでに利用されています。' if user.present?
 
     super
+
+    md5   = Digest::MD5.new.update(Time.now.strftime('%s'))
+    uid_h = md5.to_s[5...25]
+
+    user = User.find_by('email = ?', params['user']['email'])
+    user.update(uid: uid_h, name: uid_h) if user.present?
   end
 
   # GET /resource/edit
