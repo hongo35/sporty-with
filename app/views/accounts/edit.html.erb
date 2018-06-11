@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row">
+    <div id="userEditForm" class="col-lg-offset-2 col-lg-8">
+      <div class='capt'>
+        <span class='txt-caption'>アカウント編集</span>
+      </div>
+      <div>
+      <%= form_for @account do |f| %>
+        <div class="login-form-field">
+          <p>ユーザー名</p>
+          <%= f.text_field :user_name, autofocus: true %>
+        </div>
+
+        <div class="login-form-field">
+          <%= f.hidden_field :img_cache %>
+          <%= image_with_dummy(@account.img.url, {width: 100, height: 100, id: 'message_template_img_0'}) %>
+          <%= f.file_field :img, accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png' %>
+        </div>
+
+        <div class="login-form-submit">
+          <%= submit_tag "更新" %>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>

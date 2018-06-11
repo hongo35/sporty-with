@@ -42,16 +42,16 @@ img {
 	vertical-align: middle;
 	border: 0;
 }
-.header {
-	background: #fff;
-	height: 60px;
-	margin: 0;
-	border-top: solid 1px $borderColor;
-	border-bottom: solid 1px $borderColor;
+.fa {
+  padding-right: 5px;
 }
-.nav-help {
-	margin-right: 20px;
-	margin-top: 19px;
+.header {
+    background: #fff;
+    height: 60px;
+    margin: 0;
+    border-top: solid 1px $borderColor;
+    border-bottom: solid 1px $borderColor;
+    padding: 16px;
 }
 .navbar-fixed-top {
 	position: fixed;
@@ -68,9 +68,6 @@ img {
 	outline: none;
 	text-decoration: none;
 	color: #616161;
-}
-.header-logo {
-	margin: 16px;
 }
  .pull-left {
  	float: left;
@@ -95,7 +92,7 @@ img {
 .text-center {
 	text-align: center;
 }
-#loginForm, #newGroupForm, #newEventForm {
+#loginForm, #userEditForm, #newGroupForm, #newEventForm {
 	margin-top: 30px;
 	margin-bottom: 30px;
 	@media screen and (min-width: 769px) {
@@ -571,5 +568,19 @@ img {
       color: #4267b2;
       font-weight: bold;
     }
+  }
+}
+.nav-account {
+  .dropdown-toggle {
+    line-height: 28px;
+    cursor: pointer;
+    font-size: 16px;
+    .header-caret {
+      margin-top: 12px;
+      margin-right: 5px;
+    }
+  }
+  .dropdown-menu {
+    z-index: 5000;
   }
 }

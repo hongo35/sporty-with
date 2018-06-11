@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       post 'permit_apply'
     end
   end
+  resources :accounts
   resources :events
   resources :event_comments
 end
