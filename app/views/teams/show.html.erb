@@ -49,6 +49,9 @@
   <div class='row'>
     <div class='col-lg-offset-1 col-lg-10'>
       <table id='eventIndexTable' class='table table-bordered'>
+        <% if @events.blank? %>
+          <tr><td>登録されている活動予定はありません。</td></tr>
+        <% else %>
         <% @events.each do |e| %>
         <tr>
           <td>
@@ -58,6 +61,7 @@
             <p class='body'>コメント数: <%= e.event_comments.count %>件</p>
           </td>
         </tr>
+        <% end %>
         <% end %>
       </table>
     </div>

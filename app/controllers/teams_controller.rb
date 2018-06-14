@@ -41,10 +41,10 @@ class TeamsController < ApplicationController
 
   def create
     t = Team.new(team_params)
+    t.private_flag = 0
 
     if t.save
       TeamUser.create(
-        private_flag: 0,
         team_id: t.id,
         user_id: current_user.id,
         role: 1

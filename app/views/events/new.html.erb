@@ -12,28 +12,28 @@
       <%= hidden_field_tag 'event[team_id]', @team.id %>
 
       <div class="data-contents-row">
-        <div class='data-contents-label'><%= label :subject, 'タイトル', class: 'control-label' %><span class="label label-danger">必須</span></div>
+        <div class="data-contents-label"><%= label :subject, 'タイトル(*)', class: 'control-label' %></div>
         <div class="data-contents-data"><%= text_field_tag 'event[subject]', '', class: 'form-control' %></div>
       </div>
 
-      <div class='form-group'>
-        <div class='col-lg-3'><i class='fa fa-clock-o'></i>&nbsp;<%= label :time, '活動時間', class: 'control-label' %></div>
-        <div class='col-lg-9'>
-          <p><b>開始</b></p>
+      <div class="data-contents-row">
+        <div class="data-contents-label"><%= label :time, '開始時間', class: 'control-label' %></div>
+        <div class="data-contents-data">
           <%= text_field_tag :start_date, @today, class: 'event-setting-calendar' %>
           <%= select_tag :start_time, options_for_select(@select_time), class: 'event-setting-time' %>
-          〜
-          <p><b>終了</b></p>
+        </div>
+      </div>
+      <div class="data-contents-row">
+        <div class="data-contents-label"><%= label :time, '終了時間', class: 'control-label' %></div>
+        <div class="data-contents-data">
           <%= text_field_tag :end_date, @today, class: 'event-setting-calendar' %>
           <%= select_tag :end_time, options_for_select(@select_time), class: 'event-setting-time' %>
         </div>
       </div>
 
-      <div class='form-group'>
-        <%= label :body, '説明', class: 'col-lg-3 control-label' %>
-        <div class='col-lg-9'>
-          <%= text_area_tag 'event[body]', '', rows: 3, class: 'form-control' %>
-        </div>
+      <div class="data-contents-row">
+        <div class='data-contents-label'><%= label :body, '説明', class: 'control-label' %></div>
+        <div class="data-contents-data"><%= text_area_tag 'event[body]', '', rows: 3, class: 'form-control' %></div>
       </div>
 
       <div class='new-event-submit'>

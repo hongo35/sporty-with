@@ -6,10 +6,11 @@ class HomeController < ApplicationController
 
     @teams = Team.where('id IN (?)', tids)
 
+    # Sport
+
     @team_member_cnt = {}
     tids.each do |tid|
       @team_member_cnt[tid] = TeamUser.where('team_id = ? AND role != 0', tid).count
     end
-
   end
 end

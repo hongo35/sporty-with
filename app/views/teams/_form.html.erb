@@ -1,20 +1,21 @@
 <div id='newGroupForm' class='col-lg-offset-2 col-lg-8'>
+  <p>(*)は必須</p>
   <%= form_for @team, html: {class: 'form-horizontal', multipart: true} do |f| %>
   <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :team_name, 'チーム名', class: 'control-label' %><span class='label label-danger'>必須</span></div>
+    <div class='data-contents-label'><%= f.label :team_name, '(*)チーム名', class: 'control-label' %></div>
     <div class='data-contents-data'><%= f.text_field :team_name, class: 'form-control' %></div>
   </div>
   <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :sport_id, 'スポーツ', class: 'control-label' %><span class='label label-danger'>必須</span></div>
+    <div class='data-contents-label'><%= f.label :sport_id, '(*)スポーツ', class: 'control-label' %></div>
     <div class='data-contents-data'><%= f.select :sport_id, @sports, {}, {class: 'form-control'} %></div>
   </div>
 
   <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :location, '活動場所', class: 'control-label' %><span class='label label-default'>任意</span></div>
+    <div class='data-contents-label'><%= f.label :location, '活動場所', class: 'control-label' %></div>
     <div class='data-contents-data'><%= f.text_field :location, class: 'form-control' %></div>
   </div>
   <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :img, 'チームの画像', class: 'control-label' %><span class='label label-default'>任意</span></div>
+    <div class='data-contents-label'><%= f.label :img, 'イメージ', class: 'control-label' %></div>
     <%= f.hidden_field :img_cache %>
     <div class='data-contents-data'><%= f.file_field :img, accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png', class: 'form-control' %></div>
   </div>
