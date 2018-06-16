@@ -15,6 +15,21 @@
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-MTRGQF7');</script>
     <!-- End Google Tag Manager -->
+
+    <link rel="manifest" href="/manifest.json">
+
+    <script>
+    window.addEventListener('load', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register("/js/serviceWorker.js")
+          .then(function(registration) {
+            console.log("serviceWorker registed.");
+          }).catch(function(error) {
+            console.warn("serviceWorker error.", error);
+          });
+      }
+    });
+    </script>
   </head>
 
   <body>
@@ -52,14 +67,29 @@
       <%= yield %>
     </div>
 
-    <div id='footer' >
-      <div class='footer-container'>
-        <nav>
-          <ul class='list-inline text-center'>
-            <li>© スポコミュ<%#= link_to %></li>
-          </ul>
-        </nav>
-      </div>
+    <div id="footer">
+      <ul>
+        <li>
+          <%= link_to root_path do %>
+            <i class="fa fa-2x fa-home"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to root_path do %>
+            <i class="fa fa-2x fa-list"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to teams_path do %>
+            <i class="fa fa-2x fa-search"></i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to root_path do %>
+            <i class="fa fa-2x fa-user"></i>
+          <% end %>
+        </li>
+      </ul>
     </div>
   </body>
 </html>

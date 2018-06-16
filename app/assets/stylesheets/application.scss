@@ -20,6 +20,7 @@
  *= require font-awesome
 */
 
+$mainColor: #4080FF;
 $borderColor: #bdbdbd;
 $borderLightColor: #ddd;
 $buttonTextColor: #fff;
@@ -28,6 +29,10 @@ $errorColor: #D9534F;
 $errorDarkColor: #BF4945;
 $successColor: #5cb85c;
 
+ul {
+  padding: 0;
+  margin: 0;
+}
 h3 {
   line-height: 1.4em;
 }
@@ -81,11 +86,6 @@ img {
 .whole-container {
 	min-height: 500px;
 	padding-top: 60px;
-}
-.footer-container {
-	border-top: solid 1px $borderColor;
-	padding: 0 30px;
-	margin: 0 auto;
 }
 .list-inline {
 	padding-left: 0;
@@ -424,6 +424,26 @@ img {
 		}
 	}
 }
+#footer {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  bottom: 0px;
+  background-color: #fff;
+  border-top: solid 1px $borderColor;
+  ul {
+    list-style-type: none;
+    li {
+      width: 25%;
+      float: left;
+      line-height: 58px;
+      text-align: center;
+      a {
+        display: block;
+      }
+    }
+  }
+}
 #homeSelectListSp {
 	@media screen and (min-width:769px) {
 		display: none;
@@ -439,7 +459,7 @@ img {
 		border-bottom: solid 1px $borderColor;
 		list-style-type: none;
 		float: left;
-		width: 50%;
+		width: 100%;
 		text-align: center;
 		height: 50px;
 		line-height: 50px;
@@ -447,8 +467,8 @@ img {
 			color: #3e515c;
 			font-size: 14px;
 			font-weight: bold;
-		}
-	}
+        }
+    }
 }
 #homeContents {
 	@media screen and (max-width:640px) {
