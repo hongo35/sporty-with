@@ -49,9 +49,11 @@ class TeamsController < ApplicationController
         user_id: current_user.id,
         role: 1
       )
-    end
 
-    redirect_to home_index_path, notice: 'チームを作成しました'
+      redirect_to root_path, notice: 'チームを作成しました'
+    else
+      redirect_to new_team_path, alert: '必須項目を入力してください。'
+    end
   end
 
   def apply

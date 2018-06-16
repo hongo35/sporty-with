@@ -3,5 +3,7 @@ class Team < ActiveRecord::Base
 
   has_many :team_users, dependent: :destroy
 
+  validates :team_name, presence: true
+
   scope :query, ->(query) { where('team_name like ?', "%#{sanitize_sql_like(query)}%")}
 end
