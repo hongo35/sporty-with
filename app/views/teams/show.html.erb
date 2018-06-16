@@ -28,9 +28,13 @@
       <div class='pull-left'>
         <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @team.team_name %>」の活動予定</h3>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-offset-1 col-lg-10">
       <% if @current_user.present? %>
         <% if @team_user.present? %>
-        <div class='pc pull-right' style='margin-top: 20px;'>
+        <div class='pc pull-right' style='margin-left: 20px; margin-top: 20px;'>
           <%= link_to new_event_path(tid: @team.id), class: 'custom-btn' do %>
           <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
           <% end %>
@@ -44,8 +48,14 @@
         </div>
         <% end %>
       <% end %>
+      <div class="pc pull-right" style="margin-top: 20px;">
+        <%= link_to edit_team_path(@team), class: "custom-btn" do %>
+        <i class="fa fa-plus-circle"></i>&nbsp;編集
+        <% end %>
+      </div>
     </div>
   </div>
+
   <div class='row'>
     <div class='col-lg-offset-1 col-lg-10'>
       <table id='eventIndexTable' class='table table-bordered'>
