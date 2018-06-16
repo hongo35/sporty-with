@@ -17,6 +17,7 @@
   <div class='data-contents-row'>
     <div class='data-contents-label'><%= f.label :img, 'イメージ', class: 'control-label' %></div>
     <%= f.hidden_field :img_cache %>
+    <%= image_with_dummy(@team.img.url, {width: 100, height: 100, id: 'team_img'}) %>
     <div class='data-contents-data'><%= f.file_field :img, accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png', class: 'form-control' %></div>
   </div>
   <div class='new-group-submit'>

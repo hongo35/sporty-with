@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   # before_action  :authenticate_user!
+  before_action :set_team, only: [:edit, :update]
 
   def index
     if params[:q].present?
@@ -56,6 +57,21 @@ class TeamsController < ApplicationController
     end
   end
 
+  def edit
+    @sports = []
+    Sport.all.each do |s|
+      @sports << [s.name, s.id]
+    end
+  end
+
+  def update
+    if @team.update(team_params)
+      redirect_to root_path, notice: 'チームの情報を更新しました。'
+    else
+      render :edit
+    end
+  end
+
   def apply
     team_id = params['team_id']
 
@@ -107,6 +123,12 @@ class TeamsController < ApplicationController
   end
 
   private
+
+  def set_team
+    @team      = Team.find_by(id: params[:id])
+    @team_user = TeamUser.find_by(team_id: params[:id], user_id: current_user.id)
+    redirect_to root_path, alert: 'アクセスが許可されていません。' if @team_user.blank?
+  end
 
   def team_params
     params.require(:team).permit(:team_name, :sport_id, :location, :img, :img_cache)

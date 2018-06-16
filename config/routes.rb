@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
   resources :home
-  resources :teams, only: [:index, :show, :new, :create]  do
+  resources :teams do
     collection do
       post 'search'
       post 'apply'
