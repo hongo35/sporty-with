@@ -28,6 +28,8 @@ class TeamsController < ApplicationController
   end
 
   def new
+    return redirect_to new_user_session_path, notice: 'この操作にはログインが必要です。'  if current_user.blank?
+
     @team = Team.new
 
     @sports = []

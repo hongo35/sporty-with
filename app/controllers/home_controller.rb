@@ -6,7 +6,10 @@ class HomeController < ApplicationController
 
     @teams = Team.where('id IN (?)', tids)
 
-    # Sport
+    @sports = {}
+    Sport.all.each do |s|
+      @sports[s.id] = s.name
+    end
 
     @team_member_cnt = {}
     tids.each do |tid|

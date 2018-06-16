@@ -1,15 +1,4 @@
-<% if @current_user.present? %>
-<ul id='groupSelectListSp'>
-  <li>
-    <%= link_to new_event_path(tid: @team.id) do %>
-      <i class='fa fa-plus-circle'></i>&nbsp;活動予定を登録
-    <% end %>
-  </li>
-  <div class='clearfix'></div>
-</ul>
-<% end %>
-
-<div id='groupContents' class='container'>
+<div id="teamContents" class="container">
   <% if @apply_cnt > 0 %>
   <div class="row">
     <div class='col-lg-offset-1 col-lg-10'>
@@ -23,11 +12,47 @@
   </div>
   <% end %>
 
+  <div class="row">
+    <div class='col-lg-offset-1 col-lg-10'>
+      <table id="teamInfoTable" class="table table-bordered">
+        <tr><td class="img" rowspan="3"><%= image_with_dummy(@team.img.url, {width: 96, height: 96}) %></td><td><b><%= h(@team.team_name) %></b></td></tr>
+        <tr><td><i class='fa fa-map-marker'></i>&nbsp;<%= h(@team.location) %></td></tr>
+        <tr>
+          <td>
+            <% if @team_user.present? %>
+              <%= link_to '編集', edit_team_path(@team) %>
+            <% else %>
+            ---
+            <% end %>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <div id="teamApply" class="col-lg-offset-1 col-lg-10">
+      <% if @current_user.present? && @team_user.blank? %>
+        <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
+          <%= hidden_field_tag :team_id, @team.id %>
+          <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
   <div class='row'>
     <div class='col-lg-offset-1 col-lg-10'>
-      <div class='pull-left'>
-        <h3><i class='fa fa-calendar'></i>&nbsp;「<%= @team.team_name %>」の活動予定</h3>
+      <div class="pull-left">
+        <h3><i class="fa fa-calendar"></i>&nbsp;活動予定</h3>
       </div>
+      <% if @current_user.present? && @team_user.present? %>
+      <div class="pull-right" style="margin-top: 5px;">
+        <%= link_to new_event_path(tid: @team.id), class: 'custom-btn' do %>
+          <i class='fa fa-plus-circle'></i>&nbsp;新規登録
+        <% end %>
+      </div>
+      <% end %>
     </div>
   </div>
   <div class="row">
@@ -48,11 +73,6 @@
         </div>
         <% end %>
       <% end %>
-      <div class="pc pull-right" style="margin-top: 20px;">
-        <%= link_to edit_team_path(@team), class: "custom-btn" do %>
-        <i class="fa fa-plus-circle"></i>&nbsp;編集
-        <% end %>
-      </div>
     </div>
   </div>
 
@@ -74,16 +94,6 @@
         <% end %>
         <% end %>
       </table>
-    </div>
-  </div>
-  <div class="row">
-    <div id="teamApply" class="col-lg-offset-1 col-lg-10">
-      <% if @current_user.present? && @team_user.blank? %>
-        <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
-          <%= hidden_field_tag :team_id, @team.id %>
-          <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
-        <% end %>
-      <% end %>
     </div>
   </div>
 </div>

@@ -34,6 +34,7 @@ ul {
   margin: 0;
 }
 h3 {
+  margin-top: 10px;
   line-height: 1.4em;
 }
 h4 {
@@ -84,8 +85,9 @@ img {
  	float: right;
  }
 .whole-container {
-	min-height: 500px;
-	padding-top: 60px;
+    min-height: 500px;
+    padding-top: 60px;
+    margin-bottom: 50px;
 }
 .list-inline {
 	padding-left: 0;
@@ -236,17 +238,19 @@ img {
 		}
 	}
 }
-#welcomeSearch {
+#teamSearch {
   margin-top: 25px;
-  padding: 0 25px;
   text-align: center;
   input[type=text] {
-    width: 60%;
-    height: 46px;
+    border: solid 1px $borderColor;
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 8px;
   }
 }
 #teamListTitle {
- padding: 10px; 
+  margin-top: 0;
 }
 .team-list, #clubGroups {
   margin-top: 10px;
@@ -440,76 +444,19 @@ img {
       text-align: center;
       a {
         display: block;
+        color: #696969;
       }
     }
   }
 }
-#homeSelectListSp {
-	@media screen and (min-width:769px) {
-		display: none;
-	}
-	position: fixed;
-	z-index: 4000;
-	padding: 0;
-	width: 100%;
-	li {
-		background-color: #fff;
-		border-left: solid 1px $borderColor;
-		border-right: solid 1px $borderColor;
-		border-bottom: solid 1px $borderColor;
-		list-style-type: none;
-		float: left;
-		width: 100%;
-		text-align: center;
-		height: 50px;
-		line-height: 50px;
-		a {
-			color: #3e515c;
-			font-size: 14px;
-			font-weight: bold;
-        }
-    }
-}
 #homeContents {
-	@media screen and (max-width:640px) {
-		margin-top: 55px;
-	}
 	.pc {
 		@media screen and (max-width:640px) {
 			display: none;
 		}
 	}
 }
-#groupSelectListSp {
-  position: fixed;
-  z-index: 4000;
-  padding: 0;
-  width: 100%;
-  @media screen and (min-width:769px) {
-    display: none;
-  }
-  li {
-    background-color: #fff;
-    border-left: solid 1px $borderColor;
-    border-right: solid 1px $borderColor;
-    border-bottom: solid 1px $borderColor;
-    list-style-type: none;
-    float: left;
-    width: 100%;
-    text-align: center;
-    height: 50px;
-    line-height: 50px;
-    a {
-      color: #3e515c;
-      font-size: 14px;
-      font-weight: bold;
-    }
-  }
-}
-#groupContents {
-	@media screen and (max-width:640px) {
-		margin-top: 55px;
-	}
+#teamContents {
 	.pc {
 		@media screen and (max-width:640px) {
 			display: none;
@@ -564,7 +511,7 @@ img {
 	}
 }
 #teamApply {
-  margin-bottom: 25px;
+  margin-bottom: 15px;
   text-align: center;
   input {
     width: 70%;
@@ -605,5 +552,21 @@ img {
   }
   .dropdown-menu {
     z-index: 5000;
+  }
+}
+#teamInfoTable {
+  margin-top: 20px;
+  td.img {
+    text-align: center;
+  }
+}
+#accountImage {
+  margin-top: 20px;
+  text-align: center;
+}
+#accountInfo {
+  margin-top: 20px;
+  p {
+    border-bottom: solid 1px $borderColor;
   }
 }
