@@ -1,5 +1,5 @@
 <div id="teamContents" class="container">
-  <% if @apply_cnt > 0 %>
+  <% if @apply_cnt > 0 && @team_user.present? %>
   <div class="row">
     <div class='col-lg-offset-1 col-lg-10'>
       <div id="requestView">
@@ -31,14 +31,20 @@
   </div>
 
   <div class="row">
-    <div id="teamApply" class="col-lg-offset-1 col-lg-10">
       <% if @current_user.present? && @team_user.blank? %>
+        <% if @apply_user.blank? %>
+        <div id="teamApply" class="col-lg-offset-1 col-lg-10">
         <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
           <%= hidden_field_tag :team_id, @team.id %>
           <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
         <% end %>
+        </div>
+        <% else %>
+        <div class="col-lg-12">
+          <div class="alert alert-info">参加申請の承認待ち状態です。</div>
+        </div>    
+        <% end %>
       <% end %>
-    </div>
   </div>
 
   <div class='row'>
@@ -88,7 +94,7 @@
             <h4><%= link_to e.subject, event_path(e.id) %></h4>
             <p class='ts'><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 <%= e.end_at.strftime('%-m月%-d日 %-H:%M')%></p>
             <p class='body'><%= e.body.presence || '-----' %></p>
-            <p class='body'>コメント数: <%= e.event_comments.count %>件</p>
+            <p class='body'><i class="fa fa-commenting-o"></i>コメント: <%= e.event_comments.count %>件</p>
           </td>
         </tr>
         <% end %>

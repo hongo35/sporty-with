@@ -1,27 +1,43 @@
-<div id='newGroupForm' class='col-lg-offset-2 col-lg-8'>
-  <p>(*)は必須</p>
-  <%= form_for @team, html: {class: 'form-horizontal', multipart: true} do |f| %>
-  <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :team_name, '(*)チーム名', class: 'control-label' %></div>
-    <div class='data-contents-data'><%= f.text_field :team_name, class: 'form-control' %></div>
+<div class="row">
+  <div class="col-lg-12">
+    <div id="teamFormHeader">
+      <h4>チームの編集</h4>
+    </div>
   </div>
-  <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :sport_id, '(*)スポーツ', class: 'control-label' %></div>
-    <div class='data-contents-data'><%= f.select :sport_id, @sports, {}, {class: 'form-control'} %></div>
-  </div>
-
-  <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :location, '活動場所', class: 'control-label' %></div>
-    <div class='data-contents-data'><%= f.text_field :location, class: 'form-control' %></div>
-  </div>
-  <div class='data-contents-row'>
-    <div class='data-contents-label'><%= f.label :img, 'イメージ', class: 'control-label' %></div>
-    <%= f.hidden_field :img_cache %>
-    <%= image_with_dummy(@team.img.url, {width: 100, height: 100, id: 'team_img'}) %>
-    <div class='data-contents-data'><%= f.file_field :img, accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png', class: 'form-control' %></div>
-  </div>
-  <div class='new-group-submit'>
-    <%= f.submit '登録' %>
-  </div>
-  <% end %>
 </div>
+
+<%= form_for @team, html: {class: 'form-horizontal', multipart: true} do |f| %>
+<div id="teamImage" class="row">
+  <div class="col-lg-12">
+    <%= f.hidden_field :img_cache %>
+    <%= image_with_dummy(@team.img.url, {width: 96, height: 96}) %>
+    <label for="teamImageFile">
+      + 画像を選択
+      <%= f.file_field :img, accept: '.jpg,.jpeg,.gif,.png,image/gif,image/jpeg,image/png', id: 'teamImageFile'  %>
+    </label>
+  </div>
+</div>
+<div id="teamInfo">
+  <div class="name row">
+    <div class="col-lg-12">
+      <h5>チーム名(*必須)</h5>
+      <%= f.text_field :team_name %>
+    </div>
+  </div>
+  <div class="sport row">
+    <div class="col-lg-12">
+      <h5>スポーツ</h5>
+      <%= f.select :sport_id, @sports, {} %>
+    </div>
+  </div>
+  <div class="location row">
+    <div class="col-lg-12">
+      <h5>活動場所</h5>
+      <%= f.text_field :location %>
+    </div>
+  </div>
+  <div class="submit row">
+    <%= f.submit '登録', class: 'custom-btn' %>
+  </div>
+</div>
+<% end %>

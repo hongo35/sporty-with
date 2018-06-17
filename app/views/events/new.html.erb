@@ -1,54 +1,52 @@
-<div class='container'>
-  <div class='row'>
-    <div class='back-btn col-lg-offset-2 col-lg-8'>
-      <%= link_to team_path(@team.id) do %>
-        <i class='fa fa-backward'></i>&nbsp;戻る
-      <% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+	  <div id="eventFormHeader">
+        <h4><%= @team.team_name %>の活動予定</h4>
+      </div>
     </div>
   </div>
-  <div class='row'>
-    <div id='newEventForm' class='col-lg-offset-2 col-lg-8'>
-      <%= form_tag(events_path, class: 'form-horizontal', multipart: true) do %>
-      <%= hidden_field_tag 'event[team_id]', @team.id %>
 
-      <div class="data-contents-row">
-        <div class="data-contents-label"><%= label :subject, 'タイトル(*)', class: 'control-label' %></div>
-        <div class="data-contents-data"><%= text_field_tag 'event[subject]', '', class: 'form-control' %></div>
+  <div id="eventForm">
+  <%= form_tag(events_path, multipart: true) do %>
+    <%= hidden_field_tag 'event[team_id]', @team.id %>
+  
+    <div class="row subject">
+      <div class="col-lg-12">
+        <h5>タイトル(*必須)</h5>
+        <%= text_field_tag 'event[subject]', '' %>
       </div>
-
-      <div class="data-contents-row">
-        <div class="data-contents-label"><%= label :time, '開始時間', class: 'control-label' %></div>
-        <div class="data-contents-data">
-          <%= text_field_tag :start_date, @today, class: 'event-setting-calendar' %>
-          <%= select_tag :start_time, options_for_select(@select_time), class: 'event-setting-time' %>
-        </div>
-      </div>
-      <div class="data-contents-row">
-        <div class="data-contents-label"><%= label :time, '終了時間', class: 'control-label' %></div>
-        <div class="data-contents-data">
-          <%= text_field_tag :end_date, @today, class: 'event-setting-calendar' %>
-          <%= select_tag :end_time, options_for_select(@select_time), class: 'event-setting-time' %>
-        </div>
-      </div>
-
-      <div class="data-contents-row">
-        <div class='data-contents-label'><%= label :body, '説明', class: 'control-label' %></div>
-        <div class="data-contents-data"><%= text_area_tag 'event[body]', '', rows: 3, class: 'form-control' %></div>
-      </div>
-
-      <div class='new-event-submit'>
-        <%= submit_tag '登録' %>
-      </div>
-      <% end %>
     </div>
+  
+    <div class="row date">
+      <div class="col-lg-12">
+        <h5>日付</h5>
+        <%= select_tag :year, options_for_select(['2018', '2019']) %>&nbsp;年&nbsp;/&nbsp;
+        <%= select_tag :month, options_for_select(@month_list, selected: @current_month) %>&nbsp;月&nbsp;/&nbsp;
+        <%= select_tag :day, options_for_select(@day_list, selected: @current_day) %>&nbsp;日
+      </div>
+    </div>
+  
+    <div class="row time">
+      <div class="col-lg-12">
+        <h5>時間</h5>
+          <%= select_tag :hour, options_for_select(@hour_list, selected: @current_hour) %>&nbsp;&nbsp;:&nbsp;
+          <%= select_tag :min, options_for_select(['00', '10', '20', '30', '40', '50']) %>
+      </div>
+    </div>
+  
+    <div class="row body">
+      <div class="col-lg-12">
+        <h5>説明</h5>
+        <%= text_area_tag 'event[body]', '', rows: 3 %>
+      </div>
+    </div>
+  
+    <div class="row submit">
+      <div class="col-lg-offset-1 col-lg-10">
+        <%= submit_tag '登録する', class: 'custom-btn' %>
+      </div>
+    </div>  
+  <% end %>
   </div>
 </div>
-
-<script type='text/javascript'>
-$(function() {
-	$('.event-setting-calendar').datepicker({
-		language: 'ja',
-		format: 'yyyy-mm-dd'
-	});
-});
-</script>

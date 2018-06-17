@@ -19,39 +19,31 @@ class EventsController < ApplicationController
     @event = Event.new
     @team = Team.find_by(id: params['tid'])
 
-    @today = Time.zone.now.strftime('%F')
+    @month_list = []
+    (1..12).each do |i|
+      @month_list << format('%02d', i)
+    end
 
-    @select_time = [
-      ['00:00', '00:00'],
-      ['01:00', '01:00'],
-      ['02:00', '02:00'],
-      ['03:00', '03:00'],
-      ['04:00', '04:00'],
-      ['05:00', '05:00'],
-      ['06:00', '06:00'],
-      ['07:00', '07:00'],
-      ['08:00', '08:00'],
-      ['09:00', '09:00'],
-      ['10:00', '10:00'],
-      ['11:00', '11:00'],
-      ['12:00', '12:00'],
-      ['13:00', '13:00'],
-      ['14:00', '14:00'],
-      ['15:00', '15:00'],
-      ['16:00', '16:00'],
-      ['17:00', '17:00'],
-      ['18:00', '18:00'],
-      ['19:00', '19:00'],
-      ['20:00', '20:00'],
-      ['21:00', '21:00'],
-      ['22:00', '22:00'],
-      ['23:00', '23:00'],
-    ]
+    @day_list = []
+    (1..31).each do |i|
+      @day_list << format('%02d', i)
+    end
+
+    @hour_list = []
+    (0..23).each do |i|
+      @hour_list << format('%02d', i)
+    end
+
+    now = Time.now
+
+    @current_year  = now.strftime('%Y')
+    @current_month = now.strftime('%m')
+    @current_day   = now.strftime('%d')
+    @current_hour  = now.strftime('%H')
   end
 
   def create
-    start_at = "#{params['start_date']} #{params['start_time']}:00"
-    end_at   = "#{params['end_date']} #{params['end_time']}:00"
+    datetime = "#{params['year']}-#{params['month']}-#{params['day']} #{params['hour']}:#{params['min']}:00"
 
     return redirect_to new_event_path(tid: event_params['team_id']), alert: 'タイトルを入力してください' if event_params['subject'].blank?
 
@@ -59,8 +51,8 @@ class EventsController < ApplicationController
       team_id: event_params['team_id'],
       user_id: current_user.id,
       subject: event_params['subject'],
-      start_at: start_at,
-      end_at: end_at,
+      start_at: datetime,
+      end_at: datetime,
       body: event_params['body']
     )
 
@@ -68,11 +60,13 @@ class EventsController < ApplicationController
       uids = []
       uids = TeamUser.where('team_id = ?', event_params['team_id']).pluck(:user_id)
 
-      to_email = []
-      to_email = User.where('id IN (?)', uids).pluck(:email)
+      to_emails = []
+      to_emails = User.where('id IN (?)', uids).pluck(:email)
 
       # グループメンバーにメール送信
-      UserMailer.delivery_email(to_email).deliver
+      to_emails.each do |to_email|
+        UserMailer.delivery_email(to_email).deliver
+      end
 
       redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'
     end

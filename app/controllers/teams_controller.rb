@@ -23,6 +23,8 @@ class TeamsController < ApplicationController
     if current_user.present?
       @team_user = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @team.id, current_user.id).first
 
+      @apply_user = TeamUser.find_by(team_id: @team.id, user_id: current_user.id, role: 0)
+
       @apply_cnt = TeamUser.where('team_id = ? AND role = 0', params['id']).count
     end
   end
