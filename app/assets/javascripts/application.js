@@ -14,5 +14,18 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require moment
-//= require fullcalendar.min
+//= require push.min
 //= require_tree .
+
+/*
+$(function(){
+  if(!canUsePushNotificatioin('permission_request')){
+    Push.Permission.request();
+  }
+});
+
+function canUsePushNotificatioin(ua) {
+  var version = ua != 'permission_request' ? ua.toLowerCase() : window.navigator.appVersion.toLowerCase();
+  return (version.indexOf("msie 6.") != -1 || version.indexOf("msie 7.") != -1 || version.indexOf("msie 8.") != -1 || version.indexOf("msie 9.") != -1 || version.indexOf("msie 10.") != -1 || version.indexOf("rv:11.") != -1);
+}
+*/

@@ -24,6 +24,10 @@ Rails.application.routes.draw do
     end
   end
   resources :accounts
-  resources :events
+  resources :events do
+    collection do
+      post 'participate'
+    end
+  end
   resources :event_comments
 end

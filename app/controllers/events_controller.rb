@@ -4,6 +4,8 @@ class EventsController < ApplicationController
   def show
     @event = Event.find_by(id: params['id'])
 
+    @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
+
     tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
     redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
 
@@ -56,6 +58,8 @@ class EventsController < ApplicationController
       body: event_params['body']
     )
 
+    team = Team.find_by(id: event_params['team_id'])
+
     if e.save
       uids = []
       uids = TeamUser.where('team_id = ?', event_params['team_id']).pluck(:user_id)
@@ -65,11 +69,21 @@ class EventsController < ApplicationController
 
       # グループメンバーにメール送信
       to_emails.each do |to_email|
-        UserMailer.delivery_email(to_email).deliver
+        UserMailer.delivery_email(to_email, team.team_name, event_params['subject'], datetime, event_params['body']).deliver
       end
 
       redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'
     end
+  end
+
+  def participate
+    EventParticipant.create(
+      event_id: params['event_id'],
+      user_id: current_user.id,
+      user_name: current_user.name
+    )
+
+    redirect_to event_path(params['event_id']), notice: 'このイベントに参加予定です。'
   end
 
   private

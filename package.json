@@ -1,0 +1,11 @@
+{
+  "name": "sporty-with",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:hongo35/sporty-with.git",
+  "author": "Yutaka Hongo <s.style3.5@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "push.js": "^1.0.5"
+  }
+}

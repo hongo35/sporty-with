@@ -1,14 +1,4 @@
 <div class='container'>
-<!--
-<div class='row'>
-<div class='back-btn col-lg-offset-2 col-lg-8'>
-<%#= link_to group_path(@event.group_id) do %>
-<i class='fa fa-backward'></i>&nbsp;戻る
-<%# end %>
-</div>
-</div>
--->
-
   <div class='row'>
     <div class='col-lg-offset-2 col-lg-8'>
       <table id='eventCommentInfo' class='table table-bordered'>
@@ -28,9 +18,25 @@
     </div>
   </div>
 
-  <div class='row'>
-    <div class='col-lg-offset-2 col-lg-8'>
-      <h4><i class='fa fa-edit'></i>&nbsp;投稿する</h4>
+  <% if @event_participant.blank? %>
+  <div id="eventParticipate" class="row">
+    <div class="col-lg-12">
+      <%= link_to '参加する', participate_events_path(event_id: @event.id), method: :post, class: 'custom-btn' %>
+    </div>
+  </div>
+  <% else %>
+  <div class="row" style="margin-bottom: 10px;">
+    <div class="col-lg-12">
+      <div class="alert alert-info">
+        <p>この活動に参加予定です。</p>
+      </div>
+    </div>
+  </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <h4><i class="fa fa-edit"></i>&nbsp;投稿する</h4>
       <%= form_for @new_comment do |f| %>
         <%= f.hidden_field :event_id, value: @event.id %>
         <%= f.hidden_field :user_id, value: current_user['id'] %>
@@ -44,7 +50,7 @@
   </div>
 
   <div class='row'>
-    <div class='col-lg-offset-2 col-lg-8'>
+    <div class='col-lg-12'>
       <h4><i class='fa fa-list'></i>&nbsp;投稿一覧</h4>
       <ul id='commentList'>
         <% if @comments.blank? %>
