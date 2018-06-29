@@ -62,41 +62,20 @@
     </div>
   </div>
 
-  <div class='row'>
-    <div class='col-lg-offset-1 col-lg-10'>
-      <table id='eventIndexTable' class='table table-bordered'>
-        <% if @events.blank? %>
-          <tr><td>登録されている活動予定はありません。</td></tr>
-        <% else %>
-        <% @events.each do |e| %>
-        <tr>
-          <td>
-            <h4><%= link_to e.subject, event_path(e.id) %></h4>
-            <p class='ts'><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 <%= e.end_at.strftime('%-m月%-d日 %-H:%M')%></p>
-            <p class='body'><%= e.body.presence || '-----' %></p>
-            <p class='body'><i class="fa fa-commenting-o"></i>コメント: <%= e.event_comments.count %>件</p>
-          </td>
-        </tr>
-        <% end %>
-        <% end %>
-      </table>
-    </div>
-  </div>
+<ul id="teamEventList">
+  <% if @events.blank? %>
+    <li>登録されている活動予定はありません。</li>
+  <% else %>
+    <% @events.each do |e| %>
+      <li>
+        <h4><%= link_to e.subject, event_path(e.id) %></h4>
+        <p class='ts'><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 <%= e.end_at.strftime('%-m月%-d日 %-H:%M')%></p>
+        <p class='body'><%= e.body.presence || '-----' %></p>
+        <p class='body'><i class="fa fa-commenting-o"></i>コメント: <%= e.event_comments.count %>件</p>
+      </li>
+    <% end %>
+  <% end %>
+  <li style='height: 25px;'></li>
+</ul>
+
 </div>
-
-<%= javascript_tag do %>
-/*
-$(function() {
-	$('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay'
-		},
-		lang: 'ja',
-		events: <%#= raw @events.to_json %>
-
-	});
-});
-*/
-<% end %>

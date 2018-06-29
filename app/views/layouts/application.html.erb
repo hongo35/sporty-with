@@ -16,29 +16,46 @@
     })(window,document,'script','dataLayer','GTM-MTRGQF7');</script>
     <!-- End Google Tag Manager -->
 
-    <script>
-    window.addEventListener('load', function() {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register("/serviceWorker.js")
-          .then(function(registration) {
-            console.log("serviceWorker registed.");
-            //return registration.pushManager.getSubscription().then(function(subscription) {
-              //if (subscription) {
-                //return subscription
-              //}
-              //return registration.pushManager.subscribe({
-                //userVisibleOnly: true
-              //})
-            //})
-          //}).then(function(subscription) {
-            //var endpoint = subscription.endpoint
-            //console.log("pushManager endpoint:", endpoint);
-          }).catch(function(error) {
-            console.warn("serviceWorker error.", error);
-          });
-      }
-    });
-    </script>
+    <% if current_user.present? %>
+      <% if current_user.endpoint.blank? %>
+        <script>
+        window.addEventListener('load', function() {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register("/serviceWorker.js")
+              .then(function(registration) {
+                console.log("serviceWorker registed.");
+                return registration.pushManager.getSubscription().then(function(subscription) {
+                  if (subscription) {
+                    return subscription
+                  }
+                  return registration.pushManager.subscribe({
+                    userVisibleOnly: true
+                  })
+                })
+              }).then(function(subscription) {
+                var endpoint = subscription.endpoint
+
+                $.ajax({
+                  type: 'POST',
+                  url: '/home/ajax_push',
+                  data: {
+                    endpoint: endpoint
+                  },
+                  success: function(data) {
+                    console.log('success');
+                  },
+                  error: function(data) {
+                  }
+                });
+
+              }).catch(function(error) {
+                console.warn("serviceWorker error.", error);
+              });
+          }
+        });
+        </script>
+      <% end %>
+    <% end %>
 
     <link rel="manifest" href="/manifest.json">
   </head>

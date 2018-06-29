@@ -29,6 +29,9 @@ $errorColor: #D9534F;
 $errorDarkColor: #BF4945;
 $successColor: #5cb85c;
 
+.container {
+  padding: 0;
+}
 ul {
   padding: 0;
   margin: 0;
@@ -373,16 +376,6 @@ img {
 		}
 	}
 }
-#eventIndexTable {
-	margin-top: 10px;
-	td {
-		padding: 15px;
-		p.ts {
-			font-size: 16px;
-			font-weight: bold;
-		}
-	}
-}
 #footer {
   position: fixed;
   width: 100%;
@@ -607,4 +600,13 @@ img {
 }
 #eventParticipate {
 	text-align: center;
+}
+#teamEventList {
+  margin-top: 20px;
+  width: 100%;
+  list-style-type: none;
+  li {
+    padding: 5px 15px;
+    border-top: solid 1px #ddd;
+  }
 }

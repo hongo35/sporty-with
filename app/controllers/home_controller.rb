@@ -16,4 +16,10 @@ class HomeController < ApplicationController
       @team_member_cnt[tid] = TeamUser.where('team_id = ? AND role != 0', tid).count
     end
   end
+
+  def ajax_push
+    current_user.update(endpoint: params['endpoint'])
+
+    render json: []
+  end
 end

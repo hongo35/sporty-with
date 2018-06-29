@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180621133416) do
+ActiveRecord::Schema.define(version: 20180629143349) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id",                 null: false
@@ -18,14 +18,6 @@ ActiveRecord::Schema.define(version: 20180621133416) do
     t.string   "img",        default: "", null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-  end
-
-  create_table "clubs", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
-    t.string   "name",       null: false
-    t.string   "url",        null: false
-    t.string   "address",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "event_comments", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
@@ -88,6 +80,7 @@ ActiveRecord::Schema.define(version: 20180621133416) do
     t.string   "name",                              default: "", null: false
     t.string   "profile_img_url",                   default: "", null: false
     t.string   "email",                             default: "", null: false
+    t.string   "endpoint",                          default: "", null: false
     t.string   "encrypted_password",                default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
