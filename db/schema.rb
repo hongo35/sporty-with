@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180629143349) do
+ActiveRecord::Schema.define(version: 20180703151803) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id",                 null: false
@@ -50,6 +50,11 @@ ActiveRecord::Schema.define(version: 20180629143349) do
     t.datetime "updated_at",                            null: false
   end
 
+  create_table "prefs", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.integer "pref_id",   null: false
+    t.string  "pref_name", null: false
+  end
+
   create_table "sports", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       null: false
     t.datetime "created_at", null: false
@@ -68,6 +73,7 @@ ActiveRecord::Schema.define(version: 20180629143349) do
     t.string   "team_name",                           null: false
     t.integer  "private_flag", limit: 1,              null: false
     t.integer  "sport_id",                            null: false
+    t.integer  "pref_id",                             null: false
     t.string   "location",                            null: false
     t.string   "img",                    default: "", null: false
     t.datetime "created_at",                          null: false

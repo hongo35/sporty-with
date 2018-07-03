@@ -38,6 +38,11 @@ class TeamsController < ApplicationController
     Sport.all.each do |s|
       @sports << [s.name, s.id]
     end
+
+    @prefs = []
+    Pref.all.each do |p|
+      @prefs << [p.pref_name, p.id]
+    end
   end
 
   def search
@@ -65,6 +70,11 @@ class TeamsController < ApplicationController
     @sports = []
     Sport.all.each do |s|
       @sports << [s.name, s.id]
+    end
+
+    @prefs = []
+    Pref.all.each do |p|
+      @prefs << [p.pref_name, p.id]
     end
   end
 
@@ -135,6 +145,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:team_name, :sport_id, :location, :img, :img_cache)
+    params.require(:team).permit(:team_name, :sport_id, :pref_id, :location, :img, :img_cache)
   end
 end
