@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   before_action  :authenticate_user!
 
   def index
-    tids = TeamUser.where('user_id = ? AND role = 1', current_user.id).pluck(:team_id)
+    tids = TeamUser.where('user_id = ? AND role != 0', current_user.id).pluck(:team_id)
 
     @teams = Team.where('id IN (?)', tids)
 

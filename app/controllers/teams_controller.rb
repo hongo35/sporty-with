@@ -98,13 +98,17 @@ class TeamsController < ApplicationController
       role: 0
     )
 
-    if tu_new.save
-      admin_uids = TeamUser.where('team_id = ?', team_id).pluck(:user_id)
+    team = Team.find_by(id: team_id)
 
-      to_email = User.where('id IN (?)', admin_uids).pluck(:email)
+    if tu_new.save
+      admin_uids = TeamUser.where('team_id = ? AND role = 1', team_id).pluck(:user_id)
+
+      to_emails = User.where('id IN (?)', admin_uids).pluck(:email)
 
       # グループオーナーにメール送信
-      UserMailer.apply_email(to_email).deliver
+      to_emails.each do |to_email|
+        UserMailer.apply_email(to_email, team.team_name, current_user.name).deliver
+      end
 
       redirect_to root_path, notice: '参加申請が完了しました。管理者の承認をお待ちください。'
     end
