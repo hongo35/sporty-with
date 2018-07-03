@@ -11,7 +11,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    user = User.find_by('email = ?', params['user']['email'])
+    email = params['user']['email']
+    name  = email.split('@')[0]
+
+    user = User.find_by('email = ?', email)
     return redirect_to new_registration_path('user'), alert: 'メールアドレスがすでに利用されています。' if user.present?
 
     super
@@ -19,8 +22,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
     md5   = Digest::MD5.new.update(Time.now.strftime('%s'))
     uid_h = md5.to_s[5...25]
 
-    user = User.find_by('email = ?', params['user']['email'])
-    user.update(uid: uid_h, name: uid_h) if user.present?
+    user = User.find_by('email = ?', email)
+    user.update(uid: uid_h, name: name) if user.present?
   end
 
   # GET /resource/edit
