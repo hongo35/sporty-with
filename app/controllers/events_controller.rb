@@ -1,6 +1,8 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
 
+  before_action :set_event, only: [:edit, :update]
+
   def show
     @event = Event.find_by(id: params['id'])
 
@@ -84,6 +86,41 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    @month_list = []
+    (1..12).each do |i|
+      @month_list << format('%02d', i)
+    end
+
+    @day_list = []
+    (1..31).each do |i|
+      @day_list << format('%02d', i)
+    end
+
+    @hour_list = []
+    (0..23).each do |i|
+      @hour_list << format('%02d', i)
+    end
+
+    @current_year  = @event.start_at.strftime('%Y')
+    @current_month = @event.start_at.strftime('%m')
+    @current_day   = @event.start_at.strftime('%d')
+    @current_hour  = @event.start_at.strftime('%H')
+  end
+
+  def update
+    return redirect_to edit_event_path(@event.id), alert: 'タイトルを入力してください' if event_params['subject'].blank?
+
+    if @event.update(event_params)
+      datetime = "#{params['year']}-#{params['month']}-#{params['day']} #{params['hour']}:#{params['min']}:00"
+      @event.update(start_at: datetime, end_at: datetime)
+
+      redirect_to event_path(@event.id), notice: '活動予定を更新しました。'
+    else
+      render :edit
+    end
+  end
+
   def participate
     EventParticipant.create(
       event_id: params['event_id'],
@@ -96,7 +133,14 @@ class EventsController < ApplicationController
 
   private
 
+  def set_event
+    @event = Event.find_by(id: params[:id])
+    redirect_to root_path, alert: 'アクセスが許可されていません。' if @event.blank?
+
+    @team = Team.find_by(id: @event.team_id)
+  end
+
   def event_params
-    params.require(:event).permit(:team_id, :user_id, :subject, :start_at, :end_at, :body)
+    params.require(:event).permit(:team_id, :user_id, :subject, :body)
   end
 end

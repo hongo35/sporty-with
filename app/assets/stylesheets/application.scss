@@ -81,12 +81,12 @@ img {
 	text-decoration: none;
 	color: #616161;
 }
- .pull-left {
- 	float: left;
- }
- .pull-right {
- 	float: right;
- }
+.pull-left {
+  float: left;
+}
+.pull-right {
+  float: right;
+}
 .whole-container {
     min-height: 500px;
     padding-top: 60px;
@@ -379,7 +379,7 @@ img {
 #footer {
   position: fixed;
   width: 100%;
-  height: 60px;
+  height: 50px;
   bottom: 0px;
   background-color: #fff;
   border-top: solid 1px $borderColor;
@@ -388,11 +388,14 @@ img {
     li {
       width: 25%;
       float: left;
-      margin-top: 7px;
+      margin-top: 4px;
       text-align: center;
       a {
         display: block;
         color: #696969;
+        p {
+          font-size: 9px;
+        }
       }
     }
   }
