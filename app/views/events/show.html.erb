@@ -14,6 +14,10 @@
           <th>説明</th>
           <td><%= h(@event['body']) %></td>
         </tr>
+        <tr>
+          <th>参加者</th>
+          <td><%= @event_status['participant_cnt'] %>人 (未回答: <%= @event_status['member_cnt'] - @event_status['participant_cnt'] %>人)</td>
+        </tr>
       </table>
     </div>
   </div>

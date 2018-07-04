@@ -4,6 +4,14 @@ class EventsController < ApplicationController
   def show
     @event = Event.find_by(id: params['id'])
 
+    @event_status = {
+      'member_cnt'      => 0,
+      'participant_cnt' => 0
+    }
+    
+    @event_status['member_cnt'] = TeamUser.where('team_id = ? AND role != 0', @event.team_id).count
+    @event_status['participant_cnt'] = EventParticipant.where('event_id = ?', @event.id).count
+
     @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
 
     tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first

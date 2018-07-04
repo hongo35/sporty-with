@@ -12,10 +12,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     email = params['user']['email']
+    password = params['user']['password']
     name  = email.split('@')[0]
+
+    return redirect_to new_registration_path('user'), alert: 'パスワードの長さは6文字以上128文字以下で入力してください。' if password.length < 6
 
     user = User.find_by('email = ?', email)
     return redirect_to new_registration_path('user'), alert: 'メールアドレスがすでに利用されています。' if user.present?
+
+    
 
     super
 
