@@ -1,27 +1,37 @@
 <div class='container'>
-  <div class='row'>
-    <div id="teamSearch" class='col-lg-12'>
-        <%= form_tag search_teams_path, {method: :post, class: 'form-inline'} do %>
-          <%= text_field_tag 'q', '', autofocus: true, placeholder: '検索' %>
-          <%= submit_tag '' %>
-        <% end %>
-    </div>
+  <div id="teamSearch" class='col-lg-12'>
+    <%= form_tag search_teams_path, {method: :post, class: 'form-inline'} do %>
+      <%= text_field_tag 'q', @q, autofocus: true, placeholder: '検索' %>
+    <% end %>
   </div>
+  <hr/>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <h3 id="teamListTitle"><i class="fa fa-cube"></i>&nbsp;チーム一覧</h3>
-    </div>
-  </div>
-
-  <% @teams.each do |t| %>
-  <div class="row">
-    <div class="col-lg-12">
-      <table class="table table-bordered team-list-table">
-        <tr><td class="team-img" rowspan="2"><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t) %></td><td><b><%= link_to t.team_name, team_path(t) %></b><br/>[メンバー数: <%= t.team_users.where('role != 0').count %>名]</td></tr>
-        <tr><td><i class="fa fa-map-marker"></i>&nbsp;<%= t.location %></td></tr>
-      </table>
-    </div>
+  <% if @pref_label.present? %>
+  <div style="margin-top: 5px;" class="col-lg-12">
+    検索ラベル: <span style="background-color: #BCB08A; font-size: 11px; padding: 5px; color: #fff;"><%= @pref_label %></span>
   </div>
   <% end %>
+  
+  <% if @sport_label.present? %>
+  <div style="margin-top: 5px;" class="col-lg-12">
+    検索ラベル: <span style="background-color: #4AB3F4; font-size: 11px; padding: 5px; color: #fff;"><%= @sport_label %></span>
+  </div>
+  <% end %>
+
+  <div id="teamList" class="col-lg-12">
+    <% @teams.each do |t| %>
+    <table class="table table-bordered team-list-table">
+      <tr>
+        <td class="team-img" rowspan="3"><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t) %></td>
+        <td><b><%= link_to t.team_name, team_path(t) %></b><br/><p style="margin-top: 5px;"><%= t.body.truncate(100) %></p></td>
+      </tr>
+      <tr>
+        <td><p><i class="fa fa-map-marker"></i>&nbsp;<%= t.location %></p></td>
+      </tr>
+      <tr>
+        <td><span class="sport-label"><%= link_to @sports[t.sport_id - 1][0], teams_path(sport_id: t.sport_id) %></span>&nbsp;&nbsp;<span class="pref-label"><%= link_to @prefs[t.pref_id - 1][0], teams_path(pref_id: t.pref_id) %></span></td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
 </div>

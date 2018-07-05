@@ -1,13 +1,22 @@
 class TeamsController < ApplicationController
   # before_action  :authenticate_user!
+  before_action :search_list, only: [:index, :new, :edit]
   before_action :set_team, only: [:edit, :update]
 
   def index
+    @q = ''
+    @sport_label = ''
+    @pref_label = ''
     if params[:q].present?
-      # @teams = Team.query(params[:q]).where('private_flag = 0').page(params[:page]).per(params[:per])
       @teams = Team.query(params[:q])
+      @q = params[:q]
+    elsif params[:pref_id].present?
+      @teams = Team.where('pref_id = ?', params[:pref_id])
+      @pref_label = @prefs[params[:pref_id].to_i - 1][0]
+    elsif params[:sport_id].present?
+      @teams = Team.where('sport_id = ?', params[:sport_id])
+      @sport_label = @sports[params[:sport_id].to_i - 1][0]
     else
-      # @teams = Team.query(params[:q]).where('private_flag = 0').page(params[:page]).per(params[:per])
       @teams = Team.all
     end
   end
@@ -33,16 +42,6 @@ class TeamsController < ApplicationController
     return redirect_to new_user_session_path, notice: 'この操作にはログインが必要です。'  if current_user.blank?
 
     @team = Team.new
-
-    @sports = []
-    Sport.all.each do |s|
-      @sports << [s.name, s.id]
-    end
-
-    @prefs = []
-    Pref.all.each do |p|
-      @prefs << [p.pref_name, p.id]
-    end
   end
 
   def search
@@ -67,15 +66,6 @@ class TeamsController < ApplicationController
   end
 
   def edit
-    @sports = []
-    Sport.all.each do |s|
-      @sports << [s.name, s.id]
-    end
-
-    @prefs = []
-    Pref.all.each do |p|
-      @prefs << [p.pref_name, p.id]
-    end
   end
 
   def update
@@ -142,6 +132,18 @@ class TeamsController < ApplicationController
 
   private
 
+  def search_list
+    @sports = []
+    Sport.all.each do |s|
+      @sports << [s.name, s.id]
+    end
+
+    @prefs = []
+    Pref.all.each do |p|
+      @prefs << [p.pref_name, p.id]
+    end
+  end
+
   def set_team
     @team      = Team.find_by(id: params[:id])
     @team_user = TeamUser.find_by(team_id: params[:id], user_id: current_user.id)
@@ -149,6 +151,6 @@ class TeamsController < ApplicationController
   end
 
   def team_params
-    params.require(:team).permit(:team_name, :sport_id, :pref_id, :location, :img, :img_cache)
+    params.require(:team).permit(:team_name, :sport_id, :pref_id, :location, :img, :img_cache, :body)
   end
 end

@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-lg-12">
     <div id="teamFormHeader">
-      <h4>チームの編集</h4>
+      <h4><%= @team.id.present? ? 'チームの更新' : 'チームの登録' %></h4>
     </div>
   </div>
 </div>
@@ -42,8 +42,14 @@
       <%= f.text_field :location %>
     </div>
   </div>
+  <div class="body row">
+    <div class="col-lg-12">
+      <h5>説明</h5>
+      <%= f.text_area :body, rows: 3 %>
+    </div>
+  </div>
   <div class="submit row">
-    <%= f.submit '登録', class: 'custom-btn' %>
+    <%= f.submit (@team.id.present? ? '更新' : '登録'), class: 'custom-btn' %>
   </div>
 </div>
 <% end %>
