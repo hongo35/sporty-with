@@ -1,84 +1,82 @@
-<div class='container'>
-  <div class='row'>
-    <div class='col-lg-offset-2 col-lg-8'>
-      <table id='eventCommentInfo' class='table table-bordered'>
-        <tr>
-          <th>タイトル</th>
-          <td><%= @event['subject'] %></td>
-        </tr>
-        <tr>
-          <th>日時</th>
-          <td><%= @event['start_at'].strftime('%-m月%-d日 %T') %> 〜 <%= @event['end_at'].strftime('%-m月%-d日 %T') %></td>
-        </tr>
-        <tr>
-          <th>説明</th>
-          <td><%= h(@event['body']) %></td>
-        </tr>
-        <tr>
-          <th>参加者</th>
-          <td><%= @event_status['participant_cnt'] %>人 (未回答: <%= @event_status['member_cnt'] - @event_status['participant_cnt'] %>人)</td>
-        </tr>
-        <tr>
-<th></th>
-<td><%= link_to '編集', edit_event_path(@event) %></td>
-        </tr>
-      </table>
-    </div>
+<div class="row">
+  <div class="col-lg-12">
+    <table id='eventCommentInfo' class='table table-bordered'>
+      <tr>
+        <th>タイトル</th>
+        <td><%= @event['subject'] %></td>
+      </tr>
+      <tr>
+        <th>日時</th>
+        <td><%= @event['start_at'].strftime('%-m月%-d日 %T') %> 〜 <%= @event['end_at'].strftime('%-m月%-d日 %T') %></td>
+      </tr>
+      <tr>
+        <th>説明</th>
+        <td><%= h(@event['body']) %></td>
+      </tr>
+      <tr>
+        <th>参加者</th>
+        <td><%= @event_status['participant_cnt'] %>人 (未回答: <%= @event_status['member_cnt'] - @event_status['participant_cnt'] %>人)</td>
+      </tr>
+      <tr>
+        <th></th>
+        <td><%= link_to '編集', edit_event_path(@event) %></td>
+      </tr>
+    </table>
   </div>
+</div>
 
-  <% if @event_participant.blank? %>
-  <div id="eventParticipate" class="row">
-    <div class="col-lg-12">
-      <%= link_to '参加する', participate_events_path(event_id: @event.id), method: :post, class: 'custom-btn' %>
+<% if @event_participant.blank? %>
+<div id="eventParticipate" class="row">
+  <div class="col-lg-12">
+    <%= link_to '参加する', participate_events_path(event_id: @event.id), method: :post, class: 'custom-btn' %>
+  </div>
+</div>
+<% else %>
+<div class="row" style="margin-bottom: 10px;">
+  <div class="col-lg-12">
+    <div class="alert alert-info">
+      <p>この活動に参加予定です。</p>
     </div>
   </div>
-  <% else %>
-  <div class="row" style="margin-bottom: 10px;">
-    <div class="col-lg-12">
-      <div class="alert alert-info">
-        <p>この活動に参加予定です。</p>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-lg-12">
+    <h4><i class="fa fa-edit"></i>&nbsp;投稿する</h4>
+    <%= form_for @new_comment do |f| %>
+      <%= f.hidden_field :event_id, value: @event.id %>
+      <%= f.hidden_field :user_id, value: current_user['id'] %>
+      <%= f.hidden_field :user_name, value: current_user['name'] %>
+      <%= f.text_area :comment, class: 'form-control', rows: 3 %>
+      <div id='commentSubmitBtn'>
+        <%= f.submit '投稿', class: 'pull-right' %>
       </div>
-    </div>
+    <% end %>
   </div>
-  <% end %>
+</div>
 
-  <div class="row">
-    <div class="col-lg-12">
-      <h4><i class="fa fa-edit"></i>&nbsp;投稿する</h4>
-      <%= form_for @new_comment do |f| %>
-        <%= f.hidden_field :event_id, value: @event.id %>
-        <%= f.hidden_field :user_id, value: current_user['id'] %>
-        <%= f.hidden_field :user_name, value: current_user['name'] %>
-        <%= f.text_area :comment, class: 'form-control', rows: 3 %>
-        <div id='commentSubmitBtn'>
-          <%= f.submit '投稿', class: 'pull-right' %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-
-  <div class='row'>
-    <div class='col-lg-12'>
-      <h4><i class='fa fa-list'></i>&nbsp;投稿一覧</h4>
-      <ul id='commentList'>
-        <% if @comments.blank? %>
-          <li>このイベントへの投稿はありません</li>
-        <% else %>
-          <% @comments.each do |c| %>
-          <li>
-            <div class='commentInfo'>
-              <% if c.user_name.blank? %>
-                名無しさん
-              <% else %>
-                <%= c.user_name %>
-              <% end %>
-              <span><%= c.created_at.strftime('%-m月%-d日 %-H時%-M分') %></span>
-            </div>
-            <p><%= h(c.comment) %></p>
-          </li>
-          <% end %>
+<div class='row'>
+  <div class='col-lg-12'>
+    <h4><i class='fa fa-list'></i>&nbsp;投稿一覧</h4>
+    <ul id='commentList'>
+      <% if @comments.blank? %>
+        <li>このイベントへの投稿はありません</li>
+      <% else %>
+        <% @comments.each do |c| %>
+        <li>
+          <div class='commentInfo'>
+            <% if c.user_name.blank? %>
+              名無しさん
+            <% else %>
+              <%= c.user_name %>
+            <% end %>
+            <span><%= c.created_at.strftime('%-m月%-d日 %-H時%-M分') %></span>
+          </div>
+          <p><%= h(c.comment) %></p>
+        </li>
         <% end %>
-      </ul>
-    </div>
+      <% end %>
+    </ul>
   </div>
 </div>

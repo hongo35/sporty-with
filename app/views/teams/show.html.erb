@@ -1,7 +1,7 @@
-<div id="teamContents" class="container">
+<div id="teamContents">
   <% if @apply_cnt > 0 && @team_user.present? %>
   <div class="row">
-    <div class='col-lg-offset-1 col-lg-10'>
+    <div class="col-lg-12">
       <div id="requestView">
         <i class="fa fa-info-circle"></i>
         <div class="request-text">
@@ -13,7 +13,7 @@
   <% end %>
 
   <div class="row">
-    <div class='col-lg-offset-1 col-lg-10'>
+    <div class="col-lg-12">
       <table id="teamInfoTable" class="table table-bordered">
         <tr><td class="img" rowspan="3"><%= image_with_dummy(@team.img.url, {width: 96, height: 96}) %></td><td><b><%= h(@team.team_name) %></b></td></tr>
         <tr><td><i class='fa fa-map-marker'></i>&nbsp;<%= h(@team.location) %></td></tr>
@@ -22,7 +22,7 @@
             <% if @team_user.present? %>
               <%= link_to '編集', edit_team_path(@team) %>
             <% else %>
-            ---
+              <%= @team.body.presence || '---' %>
             <% end %>
           </td>
         </tr>
@@ -33,7 +33,7 @@
   <div class="row">
       <% if @current_user.present? && @team_user.blank? %>
         <% if @apply_user.blank? %>
-        <div id="teamApply" class="col-lg-offset-1 col-lg-10">
+        <div id="teamApply" class="col-lg-12">
         <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
           <%= hidden_field_tag :team_id, @team.id %>
           <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
@@ -47,8 +47,8 @@
       <% end %>
   </div>
 
-  <div class='row'>
-    <div class='col-lg-offset-1 col-lg-10'>
+  <div class="row">
+    <div class="col-lg-12">
       <div class="pull-left">
         <h3><i class="fa fa-calendar"></i>&nbsp;活動予定</h3>
       </div>

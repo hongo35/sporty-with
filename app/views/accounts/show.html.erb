@@ -1,20 +1,18 @@
-<div class="container">
-  <div id="accountImage" class="row">
-    <div class="col-lg-12">
-      <%= image_with_dummy(@account.img.url, {width: 96, height: 96}) %>
-    </div>
+<div id="accountImage" class="row">
+  <div class="col-lg-12">
+    <%= image_with_dummy(@account.img.url, {width: 96, height: 96}) %>
   </div>
-  <div id="accountInfo" class="row">
-    <div class="col-lg-12">
-      <h5>名前</h5>
-      <p><%= @account.user_name %></p>
-    </div>
+</div>
+<div id="accountInfo" class="row">
+  <div class="col-lg-12">
+    <h5>名前</h5>
+    <p><%= @account.user_name %></p>
   </div>
+</div>
 
-  <div class="row">
-    <div class="col-lg-12">
-    <%= link_to 'アカウント編集', edit_account_path(@account.id) %>
-    <%= link_to 'ログアウト', destroy_user_session_path, method: :get %>
-    </div>
+<div class="row">
+  <div class="col-lg-12">
+  <%= link_to 'アカウント編集', edit_account_path(@account.id) %>
+  <%= link_to 'ログアウト', destroy_user_session_path, method: :get %>
   </div>
 </div>

@@ -61,57 +61,62 @@
   </head>
 
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTRGQF7"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <div id="wrapper">
+      <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MTRGQF7"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+      <!-- End Google Tag Manager (noscript) -->
 
-    <div class='navbar-fixed-top header'>
-      <div class='pull-left'>
-      <%= link_to image_tag('logo.png', {class: 'header-logo', width: 150, height: 27}), root_path, class: 'no-decorate' %>
+      <div id="header">
+        <div class='pull-left'>
+          <%= link_to image_tag('logo.png', {class: 'header-logo', width: 150, height: 27}), root_path, class: 'no-decorate' %>
+        </div>
+        <div id="pcCaution" class="pull-right">
+          <p>※ このサイトはスマートホンでの利用を推奨しています。</p>
+        </div>
       </div>
-    </div>
 
-    <div class='whole-container'>
-      <% flash.each do |k, v| %>
-        <% k = 'info' if k == 'notice' %>
-        <% k = 'danger' if k == 'alert' %>
-        <%= content_tag :div, v, class: "alert alert-#{k}" %>
+      <div class='whole-container'>
+        <% flash.each do |k, v| %>
+          <% k = 'info' if k == 'notice' %>
+          <% k = 'danger' if k == 'alert' %>
+          <%= content_tag :div, v, class: "alert alert-#{k}" %>
+        <% end %>
+        <%= yield %>
+      </div>
+
+      <% if current_user.present? %>
+      <div id="footer">
+        <ul>
+          <li>
+            <%= link_to root_path do %>
+              <i class="fa fa-2x fa-home"></i><p>ホーム</p>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_team_path do %>
+              <i class='fa fa-2x fa-plus-circle'></i><p>チーム追加</p>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to teams_path do %>
+              <i class="fa fa-2x fa-search"></i><p>検索</p>
+            <% end %>
+          </li>
+          <li>
+            <% if @account.present? %>
+            <%= link_to account_path(@account) do %>
+              <i class="fa fa-2x fa-user"></i><p>プロフィール</p>
+            <% end %>
+            <% else %>
+            <%= link_to new_user_session_path, alert: 'この操作にはログインが必要です。'  do %>
+              <i class="fa fa-2x fa-user"></i>
+            <% end %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
       <% end %>
-      <%= yield %>
     </div>
-
-    <% if current_user.present? %>
-    <div id="footer">
-      <ul>
-        <li>
-          <%= link_to root_path do %>
-            <i class="fa fa-2x fa-home"></i><p>ホーム</p>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to new_team_path do %>
-            <i class='fa fa-2x fa-plus-circle'></i><p>チーム追加</p>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to teams_path do %>
-            <i class="fa fa-2x fa-search"></i><p>検索</p>
-          <% end %>
-        </li>
-        <li>
-          <% if @account.present? %>
-          <%= link_to account_path(@account) do %>
-            <i class="fa fa-2x fa-user"></i><p>プロフィール</p>
-          <% end %>
-          <% else %>
-          <%= link_to new_user_session_path, alert: 'この操作にはログインが必要です。'  do %>
-            <i class="fa fa-2x fa-user"></i>
-          <% end %>
-          <% end %>
-        </li>
-      </ul>
-    </div>
-    <% end %>
   </body>
 </html>
