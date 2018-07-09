@@ -44,7 +44,7 @@
 
   <div class="row submit">
     <div class="col-lg-offset-1 col-lg-10">
-      <%= f.submit (@event.present? ? '更新する' : '登録する'), class: 'custom-btn' %>
+      <%= f.submit (@event.id.present? ? '更新する' : '登録する'), class: 'custom-btn' %>
     </div>
   </div>  
 <% end %>

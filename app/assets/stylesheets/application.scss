@@ -635,3 +635,13 @@ img {
     border-top: solid 1px #ddd;
   }
 }
+#accountData {
+  h4 {
+    img {
+      margin-top: -4px;
+      -webkit-border-radius: 13px;
+      -moz-border-radius: 13px;
+      border-radius: 13px;
+    }
+  }
+}

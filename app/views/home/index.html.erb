@@ -1,10 +1,13 @@
-<div class='row'>
+<div id="accountData" class='row'>
   <div class='col-lg-12'>
-    <div class='pull-left'>
-      <h3><i class='fa fa-users'></i>&nbsp;あなたの所属チーム</h3>
-    </div>
+    <h4>
+      <%= link_to image_with_dummy(@account.img.url, {width: 26, height: 26}), account_path(@account) %>
+      &nbsp;<span><%= @account.user_name %>&nbsp;さんの所属チーム</span>
+    </h4>
   </div>
 </div>
+
+<hr/>
 
 <% if @teams.blank? %>
 <div class="row">
@@ -27,6 +30,17 @@
 <table class="table table-bordered team-list-table">
   <tr><td class="team-img" rowspan="3"><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t) %></td><td><b><%= link_to t.team_name, team_path(t) %></b><br/>[メンバー数: <%= t.team_users.where('role != 0').count %>名]</td></tr>
   <tr><td><p><i class="fa fa-map-marker"></i>&nbsp;<%= t.location %></p></td></tr>
+  <tr>
+    <td>
+      <p>
+        <% if @next_event[t.id]['event_id'].present? %>
+        <%= link_to "#{@next_event[t.id]['subject']} ( #{@next_event[t.id]['start_at']}〜 )", event_path(@next_event[t.id]['event_id']) %>
+        <% else %>
+        -----
+        <% end %>
+      </p>
+    </td>
+  </tr>
 </table>
 <% end %>
 </div>
