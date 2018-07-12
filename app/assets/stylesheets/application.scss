@@ -518,12 +518,6 @@ img {
     z-index: 5000;
   }
 }
-#teamInfoTable {
-  margin-top: 20px;
-  td.img {
-    text-align: center;
-  }
-}
 #teamImage, #accountImage {
   margin-top: 20px;
   text-align: center;
@@ -627,7 +621,7 @@ img {
 	text-align: center;
 }
 #teamEventList {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   list-style-type: none;
   li {
@@ -643,5 +637,41 @@ img {
       -moz-border-radius: 13px;
       border-radius: 13px;
     }
+  }
+}
+#teamInfoImage {
+  margin-top: 10px;
+  text-align: center;
+  img {
+    -webkit-border-radius: 60px;
+    -moz-border-radius: 60px;
+    border-radius: 60px;
+  }
+}
+#teamInfoName {
+  text-align: center;
+  h4 {
+    font-size: 20px;
+    a {
+      font-size: 13px;
+      padding: 3px 6px;
+    }
+  }
+  p {
+    font-size: 14px;
+  }
+}
+#teamInfoMember {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  p {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+  img {
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    border-radius: 16px;
   }
 }

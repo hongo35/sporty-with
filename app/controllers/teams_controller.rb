@@ -29,6 +29,17 @@ class TeamsController < ApplicationController
 
     @apply_cnt = 0
 
+    @team_members = []
+    TeamUser.where('team_id = ?', @team.id).each do |tu|
+      account = Account.find_by(user_id: tu.user_id)
+
+      @team_members << {
+        'id'        => account.id,
+        'user_name' => account.user_name,
+        'img_url'   => account.img.url
+      }
+    end
+
     if current_user.present?
       @team_user = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @team.id, current_user.id).first
 
