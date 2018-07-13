@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       post 'apply'
       get 'apply_check'
       post 'permit_apply'
+      post 'forbid_apply'
     end
   end
   resources :accounts

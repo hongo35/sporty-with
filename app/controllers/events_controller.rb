@@ -30,7 +30,7 @@ class EventsController < ApplicationController
   def new
     tu = TeamUser.find_by(team_id: params['tid'], user_id: current_user.id)
 
-    redirect_to teams_path, danger: 'アクセスが許可されていません。' if tu.blank?
+    return redirect_to teams_path, alert: 'アクセスが許可されていません。' if tu.blank?
 
     @event = Event.new
     @team = Team.find_by(id: params['tid'])
@@ -51,7 +51,6 @@ class EventsController < ApplicationController
     end
 
     now = Time.now
-
     @current_year  = now.strftime('%Y')
     @current_month = now.strftime('%m')
     @current_day   = now.strftime('%d')
@@ -83,7 +82,7 @@ class EventsController < ApplicationController
 
       # グループメンバーにメール送信
       to_emails.each do |to_email|
-        UserMailer.delivery_email(to_email, team.team_name, event_params['subject'], datetime, event_params['body']).deliver
+        UserMailer.delivery_email(to_email, e.id, team.team_name, event_params['subject'], datetime, event_params['body']).deliver
       end
 
       redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'

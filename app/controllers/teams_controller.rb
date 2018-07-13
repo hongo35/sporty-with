@@ -30,7 +30,7 @@ class TeamsController < ApplicationController
     @apply_cnt = 0
 
     @team_members = []
-    TeamUser.where('team_id = ?', @team.id).each do |tu|
+    TeamUser.where('team_id = ? AND role > 0', @team.id).each do |tu|
       account = Account.find_by(user_id: tu.user_id)
 
       @team_members << {
@@ -41,7 +41,7 @@ class TeamsController < ApplicationController
     end
 
     if current_user.present?
-      @team_user = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @team.id, current_user.id).first
+      @team_user = TeamUser.where('team_id = ? AND user_id = ? AND role > 0', @team.id, current_user.id).first
 
       @apply_user = TeamUser.find_by(team_id: @team.id, user_id: current_user.id, role: 0)
 
@@ -108,7 +108,7 @@ class TeamsController < ApplicationController
 
       # グループオーナーにメール送信
       to_emails.each do |to_email|
-        UserMailer.apply_email(to_email, team.team_name, current_user.name).deliver
+        UserMailer.apply_email(to_email, team_id, team.team_name, current_user.name).deliver
       end
 
       redirect_to root_path, notice: '参加申請が完了しました。管理者の承認をお待ちください。'
@@ -141,6 +141,15 @@ class TeamsController < ApplicationController
     redirect_to apply_check_teams_path(tid: tu.team_id), notice: '参加申請を承認しました。'
   end
 
+  def forbid_apply
+    team_user_id = params['tuid']
+
+    tu = TeamUser.find_by(id: team_user_id)
+    tu.update(role: -1)
+
+    redirect_to apply_check_teams_path(tid: tu.team_id), alert: '参加申請をキャンセルしました。'
+  end
+
   private
 
   def search_list
@@ -157,7 +166,7 @@ class TeamsController < ApplicationController
 
   def set_team
     @team      = Team.find_by(id: params[:id])
-    @team_user = TeamUser.find_by(team_id: params[:id], user_id: current_user.id)
+    @team_user = TeamUser.where('team_id = ? AND user_id = ? AND role > 0', params[:id], current_user.id).first
     redirect_to root_path, alert: 'アクセスが許可されていません。' if @team_user.blank?
   end
 

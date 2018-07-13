@@ -629,6 +629,43 @@ img {
     border-top: solid 1px #ddd;
   }
 }
+#applyUserList {
+  margin-top: 10px;
+  width: 100%;
+  list-style-type: none;
+  li {
+    padding: 5px 15px;
+    border-top: solid 1px #ddd;
+    .apply-user-img {
+      width: 20%;
+      text-align: center;
+      img {
+        -webkit-border-radius: 24px;
+        -moz-border-radius: 24px;
+        border-radius: 24px;
+      }
+    }
+.apply-user-info {
+  h4 {
+    margin-top: 5px;
+  }
+  p {
+    font-size: 14px;
+  }
+  div {
+    margin-top: 10px;
+    .btn {
+      padding: 3px 12px;
+      margin-right: 10px;
+    }
+    .permit {
+      color: #4080FF;
+      border-color: #4080FF;
+    }
+  }
+}
+  }
+}
 #accountData {
   h4 {
     img {

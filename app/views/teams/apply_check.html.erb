@@ -1,29 +1,31 @@
-<div class="container">
-  <div class='row'>
-    <div class='col-lg-12'>
-      <div class='pull-left'>
-        <h3><i class='fa fa-users'></i>&nbsp;参加申請者一覧</h3>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-12">
-      <table class="table table-bordered ">
-        <tr>
-          <th>プロフィール画像</th>
-          <th>申請者名</th>
-          <th>申請時間</th>
-          <th></th>
-        </tr>
-        <% @apply_users.each do |tuid, au| %>
-          <tr>
-            <td><%= image_with_dummy(au['profile_img_url'], {width: 45, height: 45}) %></td>
-            <td><%= au['name']%></td>
-            <td><%= au['applied_at'].strftime('%F %T') %></td>
-            <td><%= link_to '承認する', permit_apply_teams_path(tuid: tuid), method: :post %></td>
-          </tr>
-        <% end %>
-      </table>
+<div class='row'>
+  <div class='col-lg-12'>
+    <div class='pull-left'>
+      <h3><i class='fa fa-users'></i>&nbsp;参加申請者一覧</h3>
     </div>
   </div>
 </div>
+
+<ul id="applyUserList">
+  <% if @apply_users.blank? %>
+    <li>参加申請者はいません。</li>
+  <% else %>
+    <% @apply_users.each do |tuid, au| %>
+      <li>
+        <div class="apply-user-img pull-left">
+          <%= image_with_dummy(au['profile_img_url'], {width: 48, height: 48}) %>
+        </div>
+        <div class="apply-user-info pull-left">
+          <h4><%= au['name']%></h4>
+          <p><i class="fa fa-clock-o"></i>&nbsp;<%= au['applied_at'].strftime('%F %T') %></p>
+          <div>
+            <%= link_to '承認する', permit_apply_teams_path(tuid: tuid), method: :post, class: 'permit btn btn-default' %>
+            <%= link_to '承認しない', forbid_apply_teams_path(tuid: tuid), method: :post, class: 'btn btn-default'%>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </li>
+    <% end %>
+  <% end %>
+  <li style='height: 25px;'></li>
+</ul>

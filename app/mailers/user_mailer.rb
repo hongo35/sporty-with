@@ -1,7 +1,8 @@
 class UserMailer < ApplicationMailer
   default :charset => 'ISO-2022-JP'
 
-  def delivery_email(to_email, team_name, subject, datetime, body)
+  def delivery_email(to_email, event_id, team_name, subject, datetime, body)
+    @event_id  = event_id
     @team_name = team_name
     @subject   = subject
     @datetime  = datetime
@@ -26,7 +27,8 @@ class UserMailer < ApplicationMailer
     end
   end
 
-  def apply_email(to_email, team_name, user_name)
+  def apply_email(to_email, team_id, team_name, user_name)
+    @team_id   = team_id
     @team_name = team_name
     @user_name = user_name
 
