@@ -101,7 +101,7 @@ img {
 .text-center {
 	text-align: center;
 }
-#loginForm, #userEditForm, #newEventForm {
+#loginForm, #newEventForm {
   margin-top: 15px;
   margin-bottom: 30px;
   @media screen and (min-width: 769px) {
@@ -526,7 +526,7 @@ img {
     margin-top: 15px;
     display: block;
     color: blue;
-    #teamImageFile {
+    #teamImageFile,#accountImageFile {
       display: none;
     }
   }
@@ -576,7 +576,7 @@ img {
     width: 30%;
   }
 }
-#teamFormHeader, #eventFormHeader {
+#teamFormHeader, #eventFormHeader, #accountFormHeader{
   margin-top: 10px;
   background-color: #f5f5f5;
   border-left: solid 5px #4080FF;
@@ -676,7 +676,7 @@ img {
     }
   }
 }
-#teamInfoImage {
+#teamInfoImage, #accountInfoImage {
   margin-top: 10px;
   text-align: center;
   img {
@@ -685,7 +685,7 @@ img {
     border-radius: 60px;
   }
 }
-#teamInfoName {
+#teamInfoName, #accountInfoName {
   text-align: center;
   h4 {
     font-size: 20px;
@@ -710,5 +710,24 @@ img {
     -webkit-border-radius: 16px;
     -moz-border-radius: 16px;
     border-radius: 16px;
+  }
+}
+#accountTeamList {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  li {
+    list-style-type: none;
+    width: 33%;
+    min-height: 150px;
+    float: left;
+    text-align: center;
+    img {
+      -webkit-border-radius: 48px;
+      -moz-border-radius: 48px;
+      border-radius: 48px;
+    }
+    p {
+      padding: 5px;
+    }
   }
 }

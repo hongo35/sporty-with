@@ -2,6 +2,9 @@ class AccountsController < ApplicationController
   before_action :set_select_account
   
   def show
+    tids = TeamUser.where('user_id = ? AND role > 0', @select_account.user_id).pluck(:team_id)
+
+    @teams = Team.where('id IN (?)', tids)
   end
 
   def edit

@@ -1,19 +1,38 @@
-<div id="accountImage" class="row">
+<div id="accountInfoImage" class="row">
   <div class="col-lg-12">
-    <%= image_with_dummy(@select_account.img.url, {width: 96, height: 96}) %>
+    <%= image_with_dummy(@select_account.img.url, {width: 120, height: 120}) %>
   </div>
 </div>
-<div id="accountInfo" class="row">
+<div id="accountInfoName" class="row">
   <div class="col-lg-12">
-    <h5>名前</h5>
-    <p><%= @select_account.user_name %></p>
+    <h4>
+      <%= h(@select_account.user_name) %>&nbsp;
+      <% if @account.id == @select_account.id %>
+        <%= link_to edit_account_path(@select_account.id), class: 'btn btn-default' do %>
+          <i class="fa fa-pencil"></i>編集
+        <% end %>
+      <% end %>
+    </h4>
   </div>
 </div>
 
+<hr/>
+
+<ul id="accountTeamList">
+  <% @teams.each do |t| %>
+  <li>
+    <div><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t.id) %></div>
+    <p><%= h(t.team_name).truncate(20) %></p>
+  </li>
+  <% end %>
+  <div class="clearfix"></div>
+</ul>
+
+<hr/>
+
 <% if @account.id == @select_account.id %>
-<div class="row">
+<div class="row" style="text-align: center; margin-top: 10px;">
   <div class="col-lg-12">
-  <%= link_to 'アカウント編集', edit_account_path(@select_account.id) %>
   <%= link_to 'ログアウト', destroy_user_session_path, method: :get %>
   </div>
 </div>
