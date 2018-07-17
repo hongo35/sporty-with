@@ -1,3 +1,22 @@
+<!--
+<div id="accountData" class='row'>
+  <div class='col-lg-12'>
+    <h4>
+      <%#= link_to image_with_dummy(@account.img.url, {width: 26, height: 26}), account_path(@account) %>
+      &nbsp;<span><%#= @account.user_name %>&nbsp;さんの活動予定</span>
+    </h4>
+  </div>
+</div>
+
+<hr/>
+
+<ul id="myEventList">
+  <%# @events.each do |e| %>
+  <li><%#= e['team_name'] %></li>
+  <%# end %>
+</ul>
+-->
+
 <div id="accountData" class='row'>
   <div class='col-lg-12'>
     <h4>
@@ -26,15 +45,15 @@
 </div>
 <% else %>
 <div id="myTeamList" class="col-lg-12">
-<% @teams.each do |t| %>
+<% @teams.each do |tid, team| %>
 <table class="table table-bordered team-list-table">
-  <tr><td class="team-img" rowspan="3"><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t) %></td><td><b><%= link_to t.team_name, team_path(t) %></b><br/>[メンバー数: <%= @team_member_cnt[t.id] %>名]</td></tr>
-  <tr><td><p><i class="fa fa-map-marker"></i>&nbsp;<%= t.location %></p></td></tr>
+  <tr><td class="team-img" rowspan="3"><%= link_to image_with_dummy(team['img_url'], {width: 96, height: 96}), team_path(tid) %></td><td><b><%= link_to team['name'], team_path(tid) %></b><br/>[メンバー数: <%= @team_member_cnt[tid] %>名]</td></tr>
+  <tr><td><p><i class="fa fa-map-marker"></i>&nbsp;<%= team['location'] %></p></td></tr>
   <tr>
     <td>
       <p>
-        <% if @next_event[t.id]['event_id'].present? %>
-        <%= link_to "#{@next_event[t.id]['subject']} ( #{@next_event[t.id]['start_at']}〜 )", event_path(@next_event[t.id]['event_id']) %>
+        <% if @next_event[tid]['event_id'].present? %>
+        <%= link_to "#{@next_event[tid]['subject']} ( #{@next_event[tid]['start_at']}〜 )", event_path(@next_event[tid]['event_id']) %>
         <% else %>
         -----
         <% end %>

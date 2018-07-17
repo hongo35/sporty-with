@@ -86,9 +86,9 @@
     <% @events.each do |e| %>
       <li>
         <h4><%= link_to e.subject, event_path(e.id) %></h4>
-        <p class='ts'><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 </p>
-        <p class='body'><%= e.body.presence || '-----' %></p>
-        <p class='body'><i class="fa fa-commenting-o"></i>コメント: <%= e.event_comments.count %>件</p>
+        <p class="time"><%= e.start_at.strftime('%-m月%-d日 %-H:%M')%> 〜 </p>
+        <p class="body"><%= e.body.presence || '-----' %></p>
+        <p class="comment"><i class="fa fa-commenting-o"></i>コメント: <%= e.event_comments.count %>件</p>
       </li>
     <% end %>
   <% end %>

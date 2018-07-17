@@ -4,7 +4,25 @@ class HomeController < ApplicationController
   def index
     tids = TeamUser.where('user_id = ? AND role > 0', current_user.id).pluck(:team_id)
 
-    @teams = Team.where('id IN (?)', tids)
+    @teams = {}
+    Team.where('id IN (?)', tids).each do |t|
+      @teams[t.id] = {
+        'name'     => t.team_name,
+        'img_url'  => t.img.url,
+        'location' => t.location
+      }
+    end
+
+    @events = []
+    Event.where("team_id IN (?) AND start_at > '2018-07-01'", tids).order('start_at ASC').limit(3).each do |e|
+      @events << {
+        'team_name' => @teams[e.team_id]['name'],
+        'img_url'   => @teams[e.team_id]['img_url'],
+        'event_id'  => e.id,
+        'subject'   => e.subject,
+        'start_at'  => e.start_at.strftime('%m月%d日 %H:%M')
+      }
+    end
 
     @next_event = {}
     tids.each do |tid|

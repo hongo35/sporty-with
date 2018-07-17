@@ -16,7 +16,7 @@
       <tr>
         <th>参加者</th>
         <td>
-          <p style="margin-bottom: 4px;"><%= @participants.length %>人 (未回答: <%= @team_member_cnt - @participants.length %>人)</p>
+          <p style="margin-bottom: 4px;"><%= @participants.length %>人 (未回答: <%= @team_member_ids.length - @participants.length %>人)</p>
           <% @participants.each do |p| %>
             <%= link_to image_with_dummy(p['img_url'], {width: 28, height: 28}), account_path(p['id']) %>
           <% end %>
@@ -47,8 +47,8 @@
     <h4><i class="fa fa-edit"></i>&nbsp;投稿する</h4>
     <%= form_for @new_comment do |f| %>
       <%= f.hidden_field :event_id, value: @event.id %>
-      <%= f.hidden_field :user_id, value: current_user['id'] %>
-      <%= f.hidden_field :user_name, value: current_user['name'] %>
+      <%= f.hidden_field :user_id, value: @account['user_id'] %>
+      <%= f.hidden_field :user_name, value: @account['user_name'] %>
       <%= f.text_area :comment, class: 'form-control', rows: 3 %>
       <div id='commentSubmitBtn'>
         <%= f.submit '投稿', class: 'pull-right' %>
@@ -57,27 +57,34 @@
   </div>
 </div>
 
-<div class='row'>
-  <div class='col-lg-12'>
-    <h4><i class='fa fa-list'></i>&nbsp;投稿一覧</h4>
-    <ul id='commentList'>
-      <% if @comments.blank? %>
-        <li>このイベントへの投稿はありません</li>
-      <% else %>
-        <% @comments.each do |c| %>
-        <li>
-          <div class='commentInfo'>
-            <% if c.user_name.blank? %>
-              名無しさん
-            <% else %>
-              <%= c.user_name %>
-            <% end %>
-            <span><%= c.created_at.strftime('%-m月%-d日 %-H時%-M分') %></span>
-          </div>
-          <p><%= h(c.comment) %></p>
-        </li>
-        <% end %>
-      <% end %>
-    </ul>
+<div class="row">
+  <div class="col-lg-12">
+    <h4><i class="fa fa-list"></i>&nbsp;投稿一覧</h4>
   </div>
 </div>
+
+<ul id="commentList">
+  <% if @comments.blank? %>
+    <li>このイベントへの投稿はありません</li>
+  <% else %>
+    <% @comments.each do |c| %>
+    <li>
+      <div class="commentImage pull-left">
+        <%= link_to image_with_dummy(c['img_url'], {width: 32, height: 32}), account_path(c['id']) %>
+      </div>
+      <div class="commentInfo pull-left">
+        <p class="name">
+        <% if c['user_name'].blank? %>
+          名無しさん
+        <% else %>
+          <%= link_to c['user_name'], account_path(c['id']) %>
+        <% end %>
+        </p>
+        <p class="time"><%= c['created_at'] %></p>
+      </div>
+      <div class="clearfix"></div>
+      <p class="comment"><%= h(c['comment']) %></p>
+    </li>
+    <% end %>
+  <% end %>
+</ul>

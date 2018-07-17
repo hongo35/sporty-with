@@ -6,25 +6,52 @@ class EventsController < ApplicationController
   def show
     @event = Event.find_by(id: params['id'])
 
-    @participants = []
-    EventParticipant.where('event_id = ?', @event.id).limit(20).each do |ep|
-      account = Account.find_by(user_id: ep.user_id)
+    @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
 
-      @participants << {
-        'id'        => account.id,
-        'user_name' => account.user_name,
-        'img_url'   => account.img.url
+    @team_members = {}
+    Account.where('user_id IN (?)', @team_member_ids).each do |a|
+      @team_members[a.user_id] = {
+        'id'        => a.id,
+        'user_name' => a.user_name,
+        'img_url'   => a.img.url
       }
     end
 
-    @team_member_cnt = TeamUser.where('team_id = ? AND role != 0', @event.team_id).count
+    @participants = []
+    EventParticipant.where('event_id = ?', @event.id).limit(20).each do |ep|
+      @participants << {
+        'id'        => @team_members[ep.user_id]['id'],
+        'user_name' => @team_members[ep.user_id]['user_name'],
+        'img_url'   => @team_members[ep.user_id]['img_url']
+      }
+    end
+
     @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
 
     tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
     redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
 
     @new_comment = EventComment.new
-    @comments    = EventComment.where(event_id: @event.id).order(created_at: :desc)
+
+    @comments = []
+    EventComment.where(event_id: @event.id).order(created_at: :desc).each do |ec|
+      id        = nil
+      user_name = '名無しさん'
+      img_url   = ''
+      if @team_members[ec.user_id].present?
+        id        = @team_members[ec.user_id]['id']
+        user_name = @team_members[ec.user_id]['user_name']
+        img_url   = @team_members[ec.user_id]['img_url']
+      end
+      
+      @comments << {
+        'id'         => id,
+        'user_name'  => user_name,
+        'img_url'    => img_url,
+        'comment'    => ec.comment,
+        'created_at' => ec.created_at.strftime('%-m月%-d日 %-H時%-M分')
+      }
+    end
   end
 
   def new
