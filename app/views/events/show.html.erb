@@ -29,7 +29,7 @@
 <% if @event_participant.blank? %>
 <div id="eventParticipate" class="row">
   <div class="col-lg-12">
-    <%= link_to '参加する', participate_events_path(event_id: @event.id), method: :post, class: 'custom-btn' %>
+    <%= link_to '参加する', participate_events_path(team_id: @event.team_id, event_id: @event.id), method: :post, class: 'custom-btn' %>
   </div>
 </div>
 <% else %>
@@ -47,6 +47,7 @@
     <h4><i class="fa fa-edit"></i>&nbsp;投稿する</h4>
     <%= form_for @new_comment do |f| %>
       <%= f.hidden_field :event_id, value: @event.id %>
+      <%= f.hidden_field :team_id, value: @event.team_id %>
       <%= f.hidden_field :user_id, value: @account['user_id'] %>
       <%= f.hidden_field :user_name, value: @account['user_name'] %>
       <%= f.text_area :comment, class: 'form-control', rows: 3 %>

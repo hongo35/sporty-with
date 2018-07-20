@@ -104,6 +104,20 @@ class EventsController < ApplicationController
       uids = []
       uids = TeamUser.where('team_id = ?', event_params['team_id']).pluck(:user_id)
 
+      uids.each do |uid|
+        if uid != current_user.id
+          Timeline.create(
+            read_status: 0,
+            user_id: uid,
+            team_id: event_params['team_id'],
+            event_id: e.id,
+            action_type: 'event_create',
+            action_user_id: current_user.id,
+            comment: ''
+          )
+        end
+      end
+
       to_emails = []
       to_emails = User.where('id IN (?)', uids).pluck(:email)
 
@@ -157,6 +171,23 @@ class EventsController < ApplicationController
       user_id: current_user.id,
       user_name: current_user.name
     )
+
+    uids = []
+    uids = TeamUser.where('team_id = ?', params['team_id']).pluck(:user_id)
+
+    uids.each do |uid|
+      if uid != current_user.id
+        Timeline.create(
+          read_status: 0,
+          user_id: uid,
+          team_id: params['team_id'],
+          event_id: params['event_id'],
+          action_type: 'event_participate',
+          action_user_id: current_user.id,
+          comment: ''
+        )
+      end
+    end
 
     redirect_to event_path(params['event_id']), notice: 'このイベントに参加予定です。'
   end

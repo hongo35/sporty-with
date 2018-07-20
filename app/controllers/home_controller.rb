@@ -4,6 +4,23 @@ class HomeController < ApplicationController
   def index
     tids = TeamUser.where('user_id = ? AND role > 0', current_user.id).pluck(:team_id)
 
+    uids = TeamUser.where('team_id IN (?) AND role > 0', tids).pluck(:user_id).uniq
+
+    events = {}
+    Event.where('team_id IN (?)', tids).each do |e|
+      events[e.id] = {
+        'name' => e.subject
+      }
+    end
+
+    users = {}
+    Account.where('user_id IN (?)', uids).each do |a|
+      users[a.user_id] = {
+        'name'    => a.user_name,
+        'img_url' => a.img.url
+      }
+    end
+
     @teams = {}
     Team.where('id IN (?)', tids).each do |t|
       @teams[t.id] = {
@@ -13,41 +30,31 @@ class HomeController < ApplicationController
       }
     end
 
+    @timelines = []
+    Timeline.where('user_id = ?', current_user.id).order('Created_at DESC').each do |t|
+      @timelines << {
+        'action_type' => t.action_type,
+        'action_user_id' => t.action_user_id,
+        'user_name' => users[t.action_user_id]['name'],
+        'img_url'   => users[t.action_user_id]['img_url'],
+        'team_id'   => t.team_id,
+        'team_name' => @teams[t.team_id]['name'],
+        'event_id'   => t.event_id,
+        'event_name' => events[t.event_id]['name'],
+        'comment'   => t.comment
+      }
+    end
+
     @events = []
-    Event.where("team_id IN (?) AND start_at > '2018-07-01'", tids).order('start_at ASC').limit(3).each do |e|
+    Event.where("team_id IN (?) AND start_at > NOW()", tids).order('start_at ASC').limit(3).each do |e|
       @events << {
+        'team_id'   => e.team_id,
         'team_name' => @teams[e.team_id]['name'],
         'img_url'   => @teams[e.team_id]['img_url'],
         'event_id'  => e.id,
         'subject'   => e.subject,
         'start_at'  => e.start_at.strftime('%m月%d日 %H:%M')
       }
-    end
-
-    @next_event = {}
-    tids.each do |tid|
-      @next_event[tid] = {
-        'event_id' => nil,
-        'subject'  => '---',
-        'start_at' => '---'
-      }
-
-      e = Event.where('team_id = ? AND start_at > NOW()', tid).order('start_at ASC').first
-      if e.present?
-        @next_event[tid]['event_id'] = e.id
-        @next_event[tid]['subject'] = e.subject
-        @next_event[tid]['start_at'] = e.start_at.strftime('%m月%d日 %H:%M')
-      end
-    end
-
-    @sports = {}
-    Sport.all.each do |s|
-      @sports[s.id] = s.name
-    end
-
-    @team_member_cnt = {}
-    tids.each do |tid|
-      @team_member_cnt[tid] = TeamUser.where('team_id = ? AND role > 0', tid).count
     end
   end
 
