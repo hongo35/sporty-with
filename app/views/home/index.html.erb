@@ -74,12 +74,15 @@
     <div class="img pull-left"><%= link_to image_with_dummy(t['img_url'], {width: 48, height: 48}), account_path(t['action_user_id']) %></div>
     <div class="timeline-info pull-left">
       <% if t['action_type'] == 'event_create' %>
-      <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>に「<%= link_to t['event_name'], event_path(t['event_id']) %>」の予定を立てました。</p>
+        <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>に「<%= link_to t['event_name'], event_path(t['event_id']) %>」の予定を立てました。</p>
+        <p class="timestamp"><%= t['created_at']%></p>
       <% elsif t['action_type'] == 'event_comment' %>
-      <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>のイベント「<%= link_to t['event_name'], event_path(t['event_id']) %>」にコメントしました。</p>
-      <p style="margin-top: 15px;"><%= t['comment'] %></p>
+        <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>のイベント「<%= link_to t['event_name'], event_path(t['event_id']) %>」にコメントしました。</p>
+        <p class="comment"><%= t['comment'] %></p>
+        <p class="timestamp"><%= t['created_at']%></p>
       <% elsif t['action_type'] == 'event_participate' %>
-      <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>のイベント「<%= link_to t['event_name'], event_path(t['event_id']) %>」に参加登録しました。</p>
+        <p><%= link_to t['user_name'], account_path(t['action_user_id']) %>さんが<%= link_to t['team_name'], team_path(t['team_id']) %>のイベント「<%= link_to t['event_name'], event_path(t['event_id']) %>」に参加登録しました。</p>
+        <p class="timestamp"><%= t['created_at']%></p>
       <% end %>
     </div>
     <div class="clearfix"></div>

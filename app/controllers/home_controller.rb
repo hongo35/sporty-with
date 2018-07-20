@@ -31,7 +31,7 @@ class HomeController < ApplicationController
     end
 
     @timelines = []
-    Timeline.where('user_id = ?', current_user.id).order('Created_at DESC').each do |t|
+    Timeline.where('user_id = ?', current_user.id).order('Created_at DESC').limit(10).each do |t|
       @timelines << {
         'action_type' => t.action_type,
         'action_user_id' => t.action_user_id,
@@ -41,7 +41,8 @@ class HomeController < ApplicationController
         'team_name' => @teams[t.team_id]['name'],
         'event_id'   => t.event_id,
         'event_name' => events[t.event_id]['name'],
-        'comment'   => t.comment
+        'comment'   => t.comment,
+        'created_at' => t.created_at.strftime('%-m月%-d日 %H:%M')
       }
     end
 
@@ -53,7 +54,7 @@ class HomeController < ApplicationController
         'img_url'   => @teams[e.team_id]['img_url'],
         'event_id'  => e.id,
         'subject'   => e.subject,
-        'start_at'  => e.start_at.strftime('%m月%d日 %H:%M')
+        'start_at'  => e.start_at.strftime('%-m月%-d日 %H:%M')
       }
     end
   end

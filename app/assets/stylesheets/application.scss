@@ -702,6 +702,17 @@ img {
       p {
         font-size: 13px;
       }
+      p.comment {
+        margin-top: 15px;
+        background-color: #dcdcdc;
+        border-radius: 7px;
+        padding: 3px 10px;
+      }
+      p.timestamp {
+        font-size: 11px;
+        margin-top: 15px;
+        color: blue;
+      }
     }
   }
 }
@@ -719,6 +730,11 @@ img {
     h4 {
       margin-top: 5px;
       margin-bottom: 3px;
+      a {
+        font-weight: bold;
+        text-decoration: underline;
+        color: #333;
+      }
     }
     p.time {
       color: #a9a9a9;
@@ -794,6 +810,7 @@ img {
 #teamInfoName, #accountInfoName {
   text-align: center;
   h4 {
+    font-weight: bold;
     font-size: 20px;
     a {
       font-size: 13px;
