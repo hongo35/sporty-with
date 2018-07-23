@@ -34,35 +34,35 @@
 <div style="height: 15px; width: 100%; background-color: #dcdcdc;">
 </div>
 
-<% if @team_user.present? %>
-  <% if @apply_cnt > 0 %>
-  <div class="row">
-    <div class="col-lg-12">
-      <div id="requestView">
-        <i class="fa fa-info-circle"></i>
-        <div class="request-text">
-          <%= link_to "#{@apply_cnt}人の参加リクエストがあります。", apply_check_teams_path(tid: @team.id) %>
-        </div>
+<% if @apply_cnt > 0 && @team_user.present? %>
+<div class="row">
+  <div class="col-lg-12">
+    <div id="requestView">
+      <i class="fa fa-info-circle"></i>
+      <div class="request-text">
+        <%= link_to "#{@apply_cnt}人の参加リクエストがあります。", apply_check_teams_path(tid: @team.id) %>
       </div>
     </div>
   </div>
-  <% end %>
-  <div class="row" style="margin-top: 10px;">
-      <% if @current_user.present? && @team_user.blank? %>
-        <% if @apply_user.blank? %>
-        <div id="teamApply" class="col-lg-12">
-        <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
-          <%= hidden_field_tag :team_id, @team.id %>
-          <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
-        <% end %>
-        </div>
-        <% else %>
-        <div class="col-lg-12">
-          <div class="alert alert-info">参加申請の承認待ち状態です。</div>
-        </div>    
-        <% end %>
+</div>
+<% end %>
+<div class="row" style="margin-top: 10px;">
+    <% if @current_user.present? && @team_user.blank? %>
+      <% if @apply_user.blank? %>
+      <div id="teamApply" class="col-lg-12">
+      <%= form_tag apply_teams_path, {method: :post, class: 'form-inline'} do %>
+        <%= hidden_field_tag :team_id, @team.id %>
+        <%= submit_tag 'このチームに参加申請する', class: 'custom-btn error' %>
       <% end %>
-  </div>
+      </div>
+      <% else %>
+      <div class="col-lg-12">
+        <div class="alert alert-info">参加申請の承認待ち状態です。</div>
+      </div>    
+      <% end %>
+    <% end %>
+</div>
+<% if @team_user.present? %>
   <div class="row" style="margin-top: 10px;">
     <div class="col-lg-12">
       <div class="pull-left">
