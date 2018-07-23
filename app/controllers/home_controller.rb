@@ -32,6 +32,8 @@ class HomeController < ApplicationController
 
     @timelines = []
     Timeline.where('user_id = ?', current_user.id).order('Created_at DESC').limit(10).each do |t|
+      week_day = WEEKDAY[t.created_at.strftime("%w").to_i]
+
       @timelines << {
         'action_type' => t.action_type,
         'action_user_id' => t.action_user_id,
@@ -42,19 +44,21 @@ class HomeController < ApplicationController
         'event_id'   => t.event_id,
         'event_name' => events[t.event_id]['name'],
         'comment'   => t.comment,
-        'created_at' => t.created_at.strftime('%-m月%-d日 %H:%M')
+        'created_at' => t.created_at.strftime('%-m月%-d日('+week_day+') %-H:%M')
       }
     end
 
     @events = []
     Event.where("team_id IN (?) AND start_at > NOW()", tids).order('start_at ASC').limit(3).each do |e|
+      week_day = WEEKDAY[e.start_at.strftime("%w").to_i]
+
       @events << {
         'team_id'   => e.team_id,
         'team_name' => @teams[e.team_id]['name'],
         'img_url'   => @teams[e.team_id]['img_url'],
         'event_id'  => e.id,
         'subject'   => e.subject,
-        'start_at'  => e.start_at.strftime('%-m月%-d日 %H:%M')
+        'start_at'  => e.start_at.strftime('%-m月%-d日('+week_day+') %-H:%M')
       }
     end
   end

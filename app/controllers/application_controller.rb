@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_account
 
+  WEEKDAY = ['日','月','火','水','木','金','土']
+
   def after_sign_in_path_for(resource)
     home_index_path
   end

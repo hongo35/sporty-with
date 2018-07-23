@@ -22,7 +22,7 @@
   <% @teams.each do |t| %>
   <li>
     <div><%= link_to image_with_dummy(t.img.url, {width: 96, height: 96}), team_path(t.id) %></div>
-    <p><%= h(t.team_name).truncate(20) %></p>
+    <p><%= link_to h(t.team_name).truncate(20), team_path(t.id)%></p>
   </li>
   <% end %>
   <div class="clearfix"></div>
