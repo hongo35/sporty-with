@@ -40,7 +40,7 @@
     <div id="requestView">
       <i class="fa fa-info-circle"></i>
       <div class="request-text">
-        <%= link_to "#{@apply_cnt}人の参加リクエストがあります。", apply_check_teams_path(tid: @team.id) %>
+        <%= link_to "#{@apply_cnt}人の参加リクエストがあります。", apply_check_team_path(@team.id) %>
       </div>
     </div>
   </div>

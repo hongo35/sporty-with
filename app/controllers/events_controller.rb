@@ -5,6 +5,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find_by(id: params['id'])
+    return redirect_to root_path, alert: 'その操作は許可されていません。' if @event.blank?
 
     @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
 
@@ -50,6 +51,58 @@ class EventsController < ApplicationController
         'img_url'    => img_url,
         'comment'    => ec.comment,
         'created_at' => ec.created_at.strftime('%-m月%-d日 %-H時%-M分')
+      }
+    end
+  end
+
+  def report
+    @event = Event.find_by(id: params['id'])
+    return redirect_to root_path, alert: 'その操作は許可されていません。' if @event.blank?
+
+    @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
+
+    @team_members = {}
+    Account.where('user_id IN (?)', @team_member_ids).each do |a|
+      @team_members[a.user_id] = {
+        'id'        => a.id,
+        'user_name' => a.user_name,
+        'img_url'   => a.img.url
+      }
+    end
+
+    @participants = []
+    EventParticipant.where('event_id = ?', @event.id).limit(20).each do |ep|
+      @participants << {
+        'id'        => @team_members[ep.user_id]['id'],
+        'user_name' => @team_members[ep.user_id]['user_name'],
+        'img_url'   => @team_members[ep.user_id]['img_url']
+      }
+    end
+
+    @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
+
+    tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
+    redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
+
+    @new_report = EventReport.new
+
+    @reports = []
+    EventReport.where(event_id: @event.id).order(created_at: :desc).each do |er|
+      id        = nil
+      user_name = '名無しさん'
+      img_url   = ''
+      if @team_members[er.user_id].present?
+        id        = @team_members[er.user_id]['id']
+        user_name = @team_members[er.user_id]['user_name']
+        img_url   = @team_members[er.user_id]['img_url']
+      end
+      
+      @reports << {
+        'id'         => id,
+        'user_name'  => user_name,
+        'img_url'    => img_url,
+        'body'       => er.body,
+        'created_at' => er.created_at.strftime('%-m月%-d日 %-H時%-M分')
       }
     end
   end

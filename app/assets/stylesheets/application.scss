@@ -361,6 +361,10 @@ img {
 }
 #eventCommentInfo {
 	margin-top: 25px;
+    a.btn {
+      font-size: 13px;
+      padding: 3px 6px;
+    }
 }
 #commentSubmitBtn {
   text-align: center;
@@ -410,6 +414,7 @@ img {
     }
     p.comment {
       margin-top: 10px;
+      margin-bottom: 10px;
       font-size: 14px;
     }
   }
@@ -768,6 +773,9 @@ img {
 .apply-user-info {
   h4 {
     margin-top: 5px;
+    a {
+      color: #333;
+    }
   }
   p {
     font-size: 14px;
@@ -884,5 +892,14 @@ img {
 .team-list-table {
   .team-img {
     width: 30%;
+  }
+}
+.report-share {
+  margin-top: 10px;
+  div {
+    margin-right: 10px;
+  }
+  a {
+    margin-top: 3px;
   }
 }

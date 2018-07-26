@@ -24,19 +24,25 @@ Rails.application.routes.draw do
     end
   end
   resources :teams do
+    member do
+      get 'apply_check'
+    end
     collection do
       post 'search'
       post 'apply'
-      get 'apply_check'
       post 'permit_apply'
       post 'forbid_apply'
     end
   end
   resources :accounts
   resources :events do
+    member do
+      get 'report'
+    end
     collection do
       post 'participate'
     end
   end
   resources :event_comments
+  resources :event_reports
 end

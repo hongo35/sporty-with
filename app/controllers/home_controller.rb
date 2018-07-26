@@ -16,8 +16,9 @@ class HomeController < ApplicationController
     users = {}
     Account.where('user_id IN (?)', uids).each do |a|
       users[a.user_id] = {
-        'name'    => a.user_name,
-        'img_url' => a.img.url
+        'account_id' => a.id,
+        'name'       => a.user_name,
+        'img_url'    => a.img.url
       }
     end
 
@@ -34,15 +35,23 @@ class HomeController < ApplicationController
     Timeline.where('user_id = ?', current_user.id).order('Created_at DESC').limit(10).each do |t|
       week_day = WEEKDAY[t.created_at.strftime("%w").to_i]
 
+      img_url = users[t.action_user_id]['img_url']
+      if t.action_type == 'team_apply_permit'
+        img_url = @teams[t.team_id]['img_url']
+      end
+
+      event_name = (t.event_id != 0) ? events[t.event_id]['name'] : ''
+
       @timelines << {
         'action_type' => t.action_type,
         'action_user_id' => t.action_user_id,
+        'account_id' => users[t.action_user_id]['account_id'],
         'user_name' => users[t.action_user_id]['name'],
-        'img_url'   => users[t.action_user_id]['img_url'],
+        'img_url'   => img_url,
         'team_id'   => t.team_id,
         'team_name' => @teams[t.team_id]['name'],
         'event_id'   => t.event_id,
-        'event_name' => events[t.event_id]['name'],
+        'event_name' => event_name,
         'comment'   => t.comment,
         'created_at' => t.created_at.strftime('%-m月%-d日('+week_day+') %-H:%M')
       }

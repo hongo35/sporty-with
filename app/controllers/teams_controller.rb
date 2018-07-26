@@ -104,6 +104,20 @@ class TeamsController < ApplicationController
     if tu_new.save
       admin_uids = TeamUser.where('team_id = ? AND role = 1', team_id).pluck(:user_id)
 
+      admin_uids.each do |uid|
+        if uid != current_user.id
+          Timeline.create(
+            read_status: 0,
+            user_id: uid,
+            team_id: team_id,
+            event_id: 0,
+            action_type: 'team_apply',
+            action_user_id: current_user.id,
+            comment: ''
+          )
+        end
+      end
+
       to_emails = User.where('id IN (?)', admin_uids).pluck(:email)
 
       # グループオーナーにメール送信
@@ -116,17 +130,18 @@ class TeamsController < ApplicationController
   end
 
   def apply_check
-    team_id = params[:tid]
+    team_id = params[:id]
 
     tu = TeamUser.find_by(team_id: team_id, user_id: current_user.id, role: 1)
     return redirect_to root_path, alert: '権限がありません。' if tu.blank?
 
     @apply_users = {}
     TeamUser.where(team_id: team_id, role: 0).each do |tu|
-      u = User.find(tu.user_id)
+      a = Account.find_by(user_id: tu.user_id)
       @apply_users[tu.id] = {
-        'name'            => u.name,
-        'profile_img_url' => u.profile_img_url,
+        'account_id'      => a.id,
+        'name'            => a.user_name,
+        'profile_img_url' => a.img.url,
         'applied_at'      => tu.created_at
       }
     end
@@ -138,7 +153,17 @@ class TeamsController < ApplicationController
     tu = TeamUser.find_by(id: team_user_id)
     tu.update(role: 10)
 
-    redirect_to apply_check_teams_path(tid: tu.team_id), notice: '参加申請を承認しました。'
+    Timeline.create(
+      read_status: 0,
+      user_id: tu.user_id,
+      team_id: tu.team_id,
+      event_id: 0,
+      action_type: 'team_apply_permit',
+      action_user_id: current_user.id,
+      comment: ''
+    )
+
+    redirect_to apply_check_team_path(tu.team_id), notice: '参加申請を承認しました。'
   end
 
   def forbid_apply
