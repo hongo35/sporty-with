@@ -29,7 +29,7 @@ class EventsController < ApplicationController
 
     @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
 
-    tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
+    tu = TeamUser.where('team_id = ? AND user_id = ? AND role > 0', @event.team_id, current_user.id).first
     redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
 
     @new_comment = EventComment.new
@@ -78,11 +78,6 @@ class EventsController < ApplicationController
         'img_url'   => @team_members[ep.user_id]['img_url']
       }
     end
-
-    @event_participant = EventParticipant.find_by(event_id: params['id'], user_id: current_user.id)
-
-    tu = TeamUser.where('team_id = ? AND user_id = ? AND role != 0', @event.team_id, current_user.id).first
-    redirect_to team_path(@event.team_id), alert: '閲覧権限がありません。このチームに参加申請をしてください。' if tu.blank?
 
     @new_report = EventReport.new
 

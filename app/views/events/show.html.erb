@@ -48,7 +48,7 @@
   </div>
   <% end %>
 <% else %>
-  <%#= link_to '公開レポート(活動ログ)', report_event_path(@event) %>
+  <div id="eventReport" class="row"><%= link_to '公開レポートを書く(活動ログ)', report_event_path(@event) %></div>
 <% end %>
 
 <div class="row">

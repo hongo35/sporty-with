@@ -359,8 +359,8 @@ img {
 	color: #1085D4;
 	background-color: #fff;
 }
-#eventCommentInfo {
-	margin-top: 25px;
+#eventCommentInfo, #eventReportInfo {
+    margin-top: 25px;
     a.btn {
       font-size: 13px;
       padding: 3px 6px;
@@ -901,5 +901,14 @@ img {
   }
   a {
     margin-top: 3px;
+  }
+}
+#eventReport {
+  text-align: center;
+  a {
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    text-decoration: underline;
   }
 }
