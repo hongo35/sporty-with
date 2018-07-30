@@ -122,7 +122,14 @@ class TeamsController < ApplicationController
 
       # グループオーナーにメール送信
       to_emails.each do |to_email|
-        UserMailer.apply_email(to_email, team_id, team.team_name, current_user.name).deliver
+        UserMail.create(
+          send_flag: 0,
+          mail_type: 'team_apply',
+          email: to_email,
+          user_id: current_user.id,
+          team_id: team_id,
+          event_id: nil
+        )
       end
 
       redirect_to root_path, notice: '参加申請が完了しました。管理者の承認をお待ちください。'

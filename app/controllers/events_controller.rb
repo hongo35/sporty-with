@@ -140,22 +140,19 @@ class EventsController < ApplicationController
   def create
     datetime = "#{params['year']}-#{params['month']}-#{params['day']} #{params['hour']}:#{params['min']}:00"
 
-    return redirect_to new_event_path(tid: event_params['team_id']), alert: 'タイトルを入力してください' if event_params['subject'].blank?
+    subject = event_params['subject'].present? ? event_params['subject'] : "#{params['month']}月#{params['day']}日の活動予定"
 
     e = Event.new(
       team_id: event_params['team_id'],
       user_id: current_user.id,
-      subject: event_params['subject'],
+      subject: subject,
       start_at: datetime,
       end_at: datetime,
       body: event_params['body']
     )
 
-    team = Team.find_by(id: event_params['team_id'])
-
     if e.save
-      uids = []
-      uids = TeamUser.where('team_id = ?', event_params['team_id']).pluck(:user_id)
+      uids = TeamUser.where('team_id = ? AND role > 0', event_params['team_id']).pluck(:user_id)
 
       uids.each do |uid|
         if uid != current_user.id
@@ -171,12 +168,17 @@ class EventsController < ApplicationController
         end
       end
 
-      to_emails = []
       to_emails = User.where('id IN (?)', uids).pluck(:email)
 
-      # グループメンバーにメール送信
       to_emails.each do |to_email|
-        UserMailer.delivery_email(to_email, e.id, team.team_name, event_params['subject'], datetime, event_params['body']).deliver
+        UserMail.create(
+          send_flag: 0,
+          mail_type: 'event_create',
+          email: to_email,
+          user_id: current_user.id,
+          team_id: event_params['team_id'],
+          event_id: e.id
+        )
       end
 
       redirect_to team_path(event_params['team_id']), notice: '活動予定を作成しました'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180724141947) do
+ActiveRecord::Schema.define(version: 20180727141111) do
 
   create_table "accounts", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "user_id",                 null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20180724141947) do
 
   create_table "event_reports", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
     t.integer  "event_id",                 null: false
+    t.integer  "team_id",                  null: false
     t.integer  "user_id",                  null: false
     t.string   "user_name",                null: false
     t.text     "body",       limit: 65535, null: false
@@ -101,6 +102,17 @@ ActiveRecord::Schema.define(version: 20180724141947) do
     t.text     "comment",        limit: 65535, null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "user_mails", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8" do |t|
+    t.integer  "send_flag",  limit: 1, null: false
+    t.string   "mail_type",            null: false
+    t.string   "email",                null: false
+    t.integer  "user_id",              null: false
+    t.integer  "team_id",              null: false
+    t.integer  "event_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=MyISAM DEFAULT CHARSET=utf8mb4" do |t|
