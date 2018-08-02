@@ -1,55 +1,40 @@
-<div class="row">
+<div id="eventInfo">
+    <h3><%= @event['subject' ]%></h3>
+    <p class="ts"><%= @event['start_at'].strftime('%-m月%-d日 %-H:%M') %> 〜</p>
+    <p><%= h(@event['body']) %></p>
+</div>
+
+<div id="teamInfoMember" class="row">
   <div class="col-lg-12">
-    <table id="eventCommentInfo" class='table table-bordered'>
-      <tr>
-        <th>タイトル</th>
-        <td>
-          <%= @event['subject'] %>&nbsp;
-          <%= link_to edit_event_path(@event), class: 'btn btn-default' do %>
-            <i class="fa fa-pencil"></i>編集
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <th>日時</th>
-        <td><%= @event['start_at'].strftime('%-m月%-d日 %-H:%M') %> 〜</td>
-      </tr>
-      <tr>
-        <th>説明</th>
-        <td><%= h(@event['body']) %></td>
-      </tr>
-      <tr>
-        <th>参加者</th>
-        <td>
-          <p style="margin-bottom: 4px;"><%= @participants.length %>人 (未回答: <%= @team_member_ids.length - @participants.length %>人)</p>
-          <% @participants.each do |p| %>
-            <%= link_to image_with_dummy(p['img_url'], {width: 28, height: 28}), account_path(p['id']) %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
+    <p>参加者 <%= @participants.length %> 人 (未回答: <%= @team_member_ids.length - @participants.length %>人)</p>
+    <% @participants.each do |p| %>
+      <%= link_to image_with_dummy(p['img_url'], {width: 32, height: 32}), account_path(p['id']) %>
+    <% end %>
   </div>
 </div>
 
-<% if @event.end_at > Time.now %>
+<ul id="eventInfoMenu">
   <% if @event_participant.blank? %>
-  <div id="eventParticipate" class="row">
-    <div class="col-lg-12">
-      <%= link_to '参加する', participate_events_path(team_id: @event.team_id, event_id: @event.id), method: :post, class: 'custom-btn' %>
-    </div>
-  </div>
+  <li>
+    <i class="fa fa-star-o"></i><br/>
+    <%= link_to '参加する', participate_events_path(team_id: @event.team_id, event_id: @event.id), method: :post %>
+  </li>
   <% else %>
-  <div class="row" style="margin-bottom: 10px;">
-    <div class="col-lg-12">
-      <div class="alert alert-info">
-        <p>この活動に参加予定です。</p>
-      </div>
-    </div>
-  </div>
+  <li>
+    <i class="fa fa-star"></i><br/>
+    参加予定
+  </li>
   <% end %>
-<% else %>
-  <div id="eventReport" class="row"><%= link_to '公開レポートを書く(活動ログ)', report_event_path(@event) %></div>
-<% end %>
+  <li style="border-left: solid 1px #ccc;">
+    <i class="fa fa-tags"></i><br/>
+    <%= link_to '活動レポート', report_event_path(@event) %>
+  </li>
+  <li style="border-left: solid 1px #ccc;">
+    <i class="fa fa-pencil"></i><br/>
+    <%= link_to '編集', edit_event_path(@event) %>
+  </li>
+  <div class="clearfix"></div>
+</ul>
 
 <div class="row">
   <div class="col-lg-12">

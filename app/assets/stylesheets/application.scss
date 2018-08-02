@@ -903,12 +903,31 @@ img {
     margin-top: 3px;
   }
 }
-#eventReport {
+#eventInfo {
   text-align: center;
-  a {
-    font-size: 16px;
-    color: #333;
-    font-weight: bold;
-    text-decoration: underline;
+  p {
+    font-size: 14px;
+  }
+  p.ts {
+    color: #ff0000;
+    margin-bottom: 5px;
+  }
+}
+#eventInfoMenu {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-top: solid 1px #ccc;
+  border-bottom: solid 1px #ccc;
+  list-style-type: none;
+  li {
+    text-align: center;
+    padding: 10px;
+    float: left;
+    width: 33%;
+    a {
+      display: block;
+      font-size: 14px;
+      color: #333;
+    }
   }
 }
