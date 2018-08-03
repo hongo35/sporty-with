@@ -1,34 +1,12 @@
-<div class="row">
-  <div class="col-lg-12">
-    <table id="eventReportInfo" class='table table-bordered'>
-      <tr>
-        <th>タイトル</th>
-        <td>
-          <%= @event['subject'] %>&nbsp;
-        </td>
-      </tr>
-      <tr>
-        <th>日時</th>
-        <td><%= @event['start_at'].strftime('%-m月%-d日 %T') %> 〜</td>
-      </tr>
-      <tr>
-        <th>説明</th>
-        <td><%= h(@event['body']) %></td>
-      </tr>
-      <tr>
-        <th>参加者</th>
-        <td>
-          <p style="margin-bottom: 4px;"><%= @participants.length %>人 (未回答: <%= @team_member_ids.length - @participants.length %>人)</p>
-          <% @participants.each do |p| %>
-            <%= link_to image_with_dummy(p['img_url'], {width: 28, height: 28}), account_path(p['id']) %>
-          <% end %>
-        </td>
-      </tr>
-    </table>
-  </div>
+<div id="eventInfo">
+    <h3><%= link_to image_with_dummy(@team.img.url, {width: 32, height: 32}), team_path(@team.id) %><%= @team.team_name %></h3>
+    <h4>「<%= @event['subject' ] %>」の活動レポート</h4>
 </div>
 
-<div class="row">
+<hr/>
+
+<% if @team_member_flag == 1 %>
+<div class="row" style="margin-top: 15px;">
   <div class="col-lg-12">
     <h4><i class="fa fa-edit"></i>&nbsp;レポートを投稿する</h4>
     <%= form_for @new_report do |f| %>
@@ -43,8 +21,9 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
-<div class="row">
+<div class="row" style="margin-top: 15px;">
   <div class="col-lg-12">
     <h4><i class="fa fa-list"></i>&nbsp;レポート一覧</h4>
   </div>

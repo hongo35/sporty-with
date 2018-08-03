@@ -1,11 +1,13 @@
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:report]
 
   before_action :set_event, only: [:edit, :update]
 
   def show
     @event = Event.find_by(id: params['id'])
     return redirect_to root_path, alert: 'その操作は許可されていません。' if @event.blank?
+
+    @team = Team.find(@event.team_id)
 
     @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
 
@@ -59,6 +61,8 @@ class EventsController < ApplicationController
     @event = Event.find_by(id: params['id'])
     return redirect_to root_path, alert: 'その操作は許可されていません。' if @event.blank?
 
+    @team = Team.find(@event.team_id)
+
     @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
 
     @team_members = {}
@@ -70,14 +74,12 @@ class EventsController < ApplicationController
       }
     end
 
-    @participants = []
-    EventParticipant.where('event_id = ?', @event.id).limit(20).each do |ep|
-      @participants << {
-        'id'        => @team_members[ep.user_id]['id'],
-        'user_name' => @team_members[ep.user_id]['user_name'],
-        'img_url'   => @team_members[ep.user_id]['img_url']
-      }
+    @team_member_flag = 0
+    if current_user.present?
+      @team_member_flag = TeamUser.where('team_id = ? AND role > 0 AND user_id = ?', @event.team_id, current_user.id).count
     end
+
+    @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)
 
     @new_report = EventReport.new
 

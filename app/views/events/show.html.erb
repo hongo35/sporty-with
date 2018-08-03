@@ -1,5 +1,5 @@
 <div id="eventInfo">
-    <h3><%= @event['subject' ]%></h3>
+    <h3><%= link_to image_with_dummy(@team.img.url, {width: 32, height: 32}), team_path(@team.id) %><%= @event['subject' ]%></h3>
     <p class="ts"><%= @event['start_at'].strftime('%-m月%-d日 %-H:%M') %> 〜</p>
     <p><%= h(@event['body']) %></p>
 </div>
@@ -20,7 +20,7 @@
     <%= link_to '参加する', participate_events_path(team_id: @event.team_id, event_id: @event.id), method: :post %>
   </li>
   <% else %>
-  <li>
+  <li class="participate">
     <i class="fa fa-star"></i><br/>
     参加予定
   </li>

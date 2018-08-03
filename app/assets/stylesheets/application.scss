@@ -905,6 +905,19 @@ img {
 }
 #eventInfo {
   text-align: center;
+  h3 {
+    img {
+      margin-top: -4px;
+      margin-right: 10px;
+      -webkit-border-radius: 16px;
+      -moz-border-radius: 16px;
+      border-radius: 16px;
+    }
+  }
+  h4 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   p {
     font-size: 14px;
   }
@@ -928,6 +941,9 @@ img {
       display: block;
       font-size: 14px;
       color: #333;
+    }
+    &.participate {
+      color: #4080FF;
     }
   }
 }
