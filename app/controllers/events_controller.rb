@@ -7,6 +7,9 @@ class EventsController < ApplicationController
     @event = Event.find_by(id: params['id'])
     return redirect_to root_path, alert: 'その操作は許可されていません。' if @event.blank?
 
+    week_day = WEEKDAY[@event.start_at.strftime("%w").to_i]
+    @event_ts = @event.start_at.strftime('%-m月%-d日('+week_day+') %-H:%M')
+
     @team = Team.find(@event.team_id)
 
     @team_member_ids = TeamUser.where('team_id = ? AND role > 0', @event.team_id).pluck(:user_id)

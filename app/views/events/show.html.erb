@@ -1,6 +1,6 @@
 <div id="eventInfo">
     <h3><%= link_to image_with_dummy(@team.img.url, {width: 32, height: 32}), team_path(@team.id) %><%= @event['subject' ]%></h3>
-    <p class="ts"><%= @event['start_at'].strftime('%-m月%-d日 %-H:%M') %> 〜</p>
+    <p class="ts"><%= @event_ts %> 〜</p>
     <p><%= h(@event['body']) %></p>
 </div>
 
