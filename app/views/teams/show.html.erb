@@ -28,6 +28,7 @@
     <% else %>
       <%= @team.body.presence || '---' %>
     <% end %>
+	<%= link_to '+ 招待する', invite_member_team_path(@team), id: 'inviteBtn' %>
   </div>
 </div>
 

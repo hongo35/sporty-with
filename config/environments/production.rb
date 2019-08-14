@@ -97,4 +97,6 @@ Rails.application.configure do
     :user_name => Rails.application.secrets.mail_user_name,
     :password => Rails.application.secrets.mail_password
   }
+
+  config.root_url = 'https://sports.xtrend.tokyo'
 end

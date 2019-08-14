@@ -7,11 +7,12 @@ Rails.application.routes.draw do
   }
 
    devise_scope :user do
+     root 'devise/registrations#new'
      get '/users/sign_out' => 'devise/sessions#destroy'
    end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'welcome#index'
+  # root 'registrations#new'
 
   resources :welcome do
     collection do
@@ -23,9 +24,15 @@ Rails.application.routes.draw do
       post 'ajax_push'
     end
   end
+  resources :invites do
+    collection do
+      get 'member'
+    end
+  end
   resources :teams do
     member do
       get 'apply_check'
+      get 'invite_member'
     end
     collection do
       post 'search'

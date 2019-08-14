@@ -1,7 +1,9 @@
+require 'digest/md5'
+
 class TeamsController < ApplicationController
   # before_action  :authenticate_user!
   before_action :search_list, only: [:index, :new, :edit]
-  before_action :set_team, only: [:edit, :update]
+  before_action :set_team, only: [:edit, :update, :invite_member]
 
   def index
     @q = ''
@@ -33,10 +35,16 @@ class TeamsController < ApplicationController
     TeamUser.where('team_id = ? AND role > 0', @team.id).each do |tu|
       account = Account.find_by(user_id: tu.user_id)
 
+      img_url = account.img.url
+      if img_url.blank?
+        user = User.find_by(id: tu.user_id)
+        img_url = user.profile_img_url
+      end
+
       @team_members << {
         'id'        => account.id,
         'user_name' => account.user_name,
-        'img_url'   => account.img.url
+        'img_url'   => img_url
       }
     end
 
@@ -47,6 +55,10 @@ class TeamsController < ApplicationController
 
       @apply_cnt = TeamUser.where('team_id = ? AND role = 0', params['id']).count
     end
+  end
+
+  def invite_member
+    @tid_h = Digest::MD5.new.update(@team.id.to_s).to_s[5...25]
   end
 
   def new

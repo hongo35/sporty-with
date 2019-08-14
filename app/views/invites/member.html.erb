@@ -1,0 +1,15 @@
+<div class="row">
+  <div class="col-lg-12">
+    <h4><%= @user.name %>さんがあなたをスポコミュの<%= @team.team_name %>に招待しました！</h4>
+    <p>このチームに加入するには、ご自身のスポコミュアカウントにログインする必要があります。</p>
+
+    <div id="accountBtns">
+      <div class="account-create">
+        <%= link_to 'アカウントを作成', root_path %>
+      </div>
+      <div class="account-login">
+        <%= link_to 'ログイン', new_user_session_path %>
+      </div>
+    </div>
+  </div>
+</div>

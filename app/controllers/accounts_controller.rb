@@ -4,6 +4,9 @@ class AccountsController < ApplicationController
   def show
     tids = TeamUser.where('user_id = ? AND role > 0', @select_account.user_id).pluck(:team_id)
 
+    @img_url = @select_account.img.url
+    @img_url = current_user.profile_img_url if @img_url.blank?
+
     @teams = Team.where('id IN (?)', tids)
   end
 

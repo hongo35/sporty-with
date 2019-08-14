@@ -64,6 +64,10 @@ gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'rmagick'
 
+gem 'binding_of_caller'
+gem 'rails-i18n'
+
 gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
+gem 'omniauth-line'

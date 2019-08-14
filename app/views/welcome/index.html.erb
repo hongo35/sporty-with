@@ -1,50 +1,38 @@
 <div class='row'>
   <div class='col-lg-12'>
     <div id='welcomeMain'>
-      <div id='welcomeMainImg'>
-        <%= image_tag 'pixta_29666745_S.jpg' %>
-      </div>
       <div id='welcomeMainDesc'>
-        <h1><span>スポコミュとは?</span></h1>
+        <h1 style="text-align: center;"><span>スポコミュ</span></h1>
         <h4><b>✓ 活動日を仲間と共有できる</b></h4>
         <h4><b>✓ スポーツを通じたつながりができる</b></h4>
         <h4><b>✓ 活動履歴を記録できる</b></h4>
       </div>
-      <div id='userRegisterBtn' class='col-lg-12'>
-        <%= link_to new_registration_path('user'), class: 'custom-btn' do %>
-          <i class='fa fa-user'></i>&nbsp;ユーザー登録
-        <% end %>
-      </div>
-      <div id='userLoginBtn' class='col-lg-12'>
-        <%= link_to new_user_session_path, class: 'custom-btn' do %>
-          <i class='fa fa-sign-in'></i>&nbsp;&nbsp;ログイン
-        <% end %>
-      </div>
     </div>
   </div>
 </div>
+<div id='userRegisterBtn'>
+  <%= link_to new_registration_path('user'), class: 'custom-btn' do %>
+    <i class='fa fa-user'></i>&nbsp;ユーザー登録
+  <% end %>
+</div>
+<div id='userLoginBtn'>
+  <%= link_to new_user_session_path, class: 'custom-btn' do %>
+    <i class='fa fa-sign-in'></i>&nbsp;&nbsp;ログイン
+  <% end %>
+</div>
 
+<!--
 <div class='row bg-lgray'>
   <div class='col-lg-offset-3 col-lg-6'>
     <div class='row'>
-      <div id='selectRegGroup' class='col-lg-6'>
-        <%= link_to image_tag('group.png'), new_registration_path('user') %>
-        <h4>チームを登録</h4>
-        <p>あなたが所属しているチームを新規に登録します。</p>
-        <div class='custom-btn'>
-          <%= link_to new_registration_path('user') do %>
-            <i class='fa fa-plus-circle'></i>&nbsp;チームを登録
-          <% end %>
-        </div>
-      </div>
       <div id='selectSearchGroup' class='col-lg-6'>
-        <%= link_to image_tag('search.png'), teams_path %>
+        <%#= link_to image_tag('search.png'), teams_path %>
         <h4>チームを検索</h4>
         <p>あなたが参加したいグループを検索し、参加申請をします。</p>
         <div class='custom-btn'>
-          <%= link_to teams_path do %>
+          <%#= link_to teams_path do %>
             <i class='fa fa-search'></i>&nbsp;チームを検索
-          <% end %>
+          <%# end %>
         </div>
       </div>
     </div>
@@ -52,3 +40,4 @@
 </div>
 
 <div class='clearfix'></div>
+-->
