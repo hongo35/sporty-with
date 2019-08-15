@@ -1,3 +1,14 @@
+<script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+$(function(){
+  const clipboard = new  ClipboardJS('.copy-btn');
+
+  clipboard.on('success', function(e) {
+      $('.clipboard-success').fadeIn(1000).fadeOut(1000);
+  });
+});
+</script>
+
 <div class="row">
   <div class="col-lg-12" style="text-align: center;">
     <h3>メンバーを追加</h3>
@@ -6,7 +17,8 @@
   <div class="col-lg-12" style="margin-top: 25px;">
     <h4><b>チームへの招待リンクを共有</b></h4>
     <div class="form-group">
-      <textarea class="form-control" wrap="soft" readonly="readonly" onclick="this.focus();this.select()" style="display: inline-block;"><%= Rails.application.config.root_url %>/invites/member?uid=<%= current_user.id %>&tid=<%= @tid_h %></textarea>
+      <textarea id="inviteLink" class="form-control" wrap="soft" readonly="readonly" onclick="this.focus();this.select()" style="display: inline-block;"><%= Rails.application.config.root_url %>/invites/member?uid=<%= current_user.id %>&tid=<%= @tid_h %></textarea>
     </div>
+    <button class="copy-btn btn btn-success" data-clipboard-target="#inviteLink">コピー</button><span class="clipboard-success">コピーしました</span>
   </div>
 </div>
