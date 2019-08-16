@@ -1,6 +1,6 @@
-class ApiController < ApplicationController
+class ApisController < ApplicationController
   def index
-    'ok'
+    render json: { 'status': 'ok' }
   end
 
   def callback
