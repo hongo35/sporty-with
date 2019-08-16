@@ -71,3 +71,5 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-line'
+
+gem 'line-bot-api'
