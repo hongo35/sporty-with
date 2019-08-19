@@ -1,6 +1,8 @@
 class ApisController < ApplicationController
+  protect_from_forgery except: [:callback]
+  
   def index
-    render json: { 'status': 'ok' }
+    render json: { 'status' => 'ok' }
   end
 
   def callback
@@ -39,6 +41,6 @@ class ApisController < ApplicationController
       end
     }
 
-    'ok'
+    render json: { 'status' => 'ok' }
   end
 end
